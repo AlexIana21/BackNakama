@@ -1,51 +1,51 @@
 package Model;
 
 public class Puesto {
-    private String idPuesto;
-    private String nombre;
-    private String descripcion;
-    private String idDepartamento;
+    private String _idPuesto;
+    private String _nombre;
+    private String _descripcion;
+    private String _idDepartamento;
 
     //Constructor
     public Puesto(String idPuesto, String nombre, String descripcion, String idDepartamento) {
-        this.idPuesto = idPuesto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.idDepartamento = idDepartamento;
+        _idPuesto = idPuesto;
+        _nombre = nombre;
+        _descripcion = descripcion;
+        _idDepartamento = idDepartamento;
     }
     public Puesto() {
     }
 
     //Getters y setters
     public String getIdPuesto() {
-        return idPuesto;
+        return _idPuesto;
     }
 
     public void setIdPuesto(String idPuesto) {
-        this.idPuesto = idPuesto;
+        _idPuesto = idPuesto;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return _descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        _descripcion = descripcion;
     }
 
     public String getIdDepartamento() {
-        return idDepartamento;
+        return _idDepartamento;
     }
 
     public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
+        _idDepartamento = idDepartamento;
     }
 }

@@ -3,31 +3,31 @@ package Model;
 import java.util.Date;
 
 public class Empleados {
-    private String idEmpleado;
-    private String nombre;
-    private String apellido;
-    private String email;
-    private String telefono;
-    private Date fechaContrato;
-    private String rolComite;
-    private double salario;
-    private int estado;
-    private String idPuesto;
-    private String idUsuario;
+    private String _idEmpleado;
+    private String _nombre;
+    private String _apellido;
+    private String _email;
+    private String _telefono;
+    private Date _fechaContrato;
+    private String _rolComite;
+    private double _salario;
+    private int _estado;
+    private String _idPuesto;
+    private String _idUsuario;
 
     //Constructor
     public Empleados(String idEmpleado, String nombre, String apellido, String email, String telefono, Date fechaContrato, String rolComite, double salario, int estado, String idPuesto, String idUsuario) {
-        this.idEmpleado = idEmpleado;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.telefono = telefono;
-        this.fechaContrato = fechaContrato;
-        this.rolComite = rolComite;
-        this.salario = salario;
-        this.estado = estado;
-        this.idPuesto = idPuesto;
-        this.idUsuario = idUsuario;
+        _idEmpleado = idEmpleado;
+        _nombre = nombre;
+        _apellido = apellido;
+        _email = email;
+        _telefono = telefono;
+        _fechaContrato = fechaContrato;
+        _rolComite = rolComite;
+        _salario = salario;
+        _estado = estado;
+        _idPuesto = idPuesto;
+        _idUsuario = idUsuario;
     }
     public Empleados() {
 
@@ -36,90 +36,90 @@ public class Empleados {
     //Getters y setters
 
     public String getIdEmpleado() {
-        return idEmpleado;
+        return _idEmpleado;
     }
 
     public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
+        _idEmpleado = idEmpleado;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
 
     public String getApellido() {
-        return apellido;
+        return _apellido;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        _apellido = apellido;
     }
 
     public String getEmail() {
-        return email;
+        return _email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        _email = email;
     }
 
     public String getTelefono() {
-        return telefono;
+        return _telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        _telefono = telefono;
     }
 
     public Date getFechaContrato() {
-        return fechaContrato;
+        return _fechaContrato;
     }
 
     public void setFechaContrato(Date fechaContrato) {
-        this.fechaContrato = fechaContrato;
+        _fechaContrato = fechaContrato;
     }
 
     public String getRolComite() {
-        return rolComite;
+        return _rolComite;
     }
 
     public void setRolComite(String rolComite) {
-        this.rolComite = rolComite;
+        _rolComite = rolComite;
     }
 
     public double getSalario() {
-        return salario;
+        return _salario;
     }
 
     public void setSalario(double salario) {
-        this.salario = salario;
+        _salario = salario;
     }
 
     public int getEstado() {
-        return estado;
+        return _estado;
     }
 
     public void setEstado(int estado) {
-        this.estado = estado;
+        _estado = estado;
     }
 
     public String getIdPuesto() {
-        return idPuesto;
+        return _idPuesto;
     }
 
     public void setIdPuesto(String idPuesto) {
-        this.idPuesto = idPuesto;
+        _idPuesto = idPuesto;
     }
 
     public String getIdUsuario() {
-        return idUsuario;
+        return _idUsuario;
     }
 
     public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+        _idUsuario = idUsuario;
     }
 }

@@ -1,23 +1,23 @@
 package Model;
 
 public class Productos {
-    private String idProducto;
-    private String nombre;
-    private double precioVenta;
-    private String descripcion;
-    /*private int cantidadStock;
-    private byte[] imagen;*/
-    private int estado;
-    private String idCategoria;
+    private String _idProducto;
+    private String _nombre;
+    private String _descripcion;
+    private double _precioVenta;
+    private String _imagenRuta;
+    private boolean _estado;
+    private String _idCategoria;
 
     //Constructor
-    public Productos(String idProducto, String nombre, double precioVenta, String descripcion, int estado, String idCategoria) {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.precioVenta = precioVenta;
-        this.descripcion = descripcion;
-        this.estado = estado;
-        this.idCategoria = idCategoria;
+    public Productos(String idProducto, String nombre, double precioVenta, String imagenRuta, String descripcion, boolean estado, String idCategoria) {
+        _idProducto = idProducto;
+        _nombre = nombre;
+        _descripcion = descripcion;
+        _precioVenta = precioVenta;
+        _imagenRuta = imagenRuta;
+        _estado = estado;
+        _idCategoria = idCategoria;
     }
     public Productos () {
 
@@ -25,50 +25,55 @@ public class Productos {
 
     //Getters y setters
     public String getIdProducto() {
-        return idProducto;
+        return _idProducto;
     }
 
     public void setIdProducto(String idProducto) {
-        this.idProducto = idProducto;
+        _idProducto = idProducto;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
-
-    public double getPrecioVenta() {
-        return precioVenta;
-    }
-
-    public void setPrecioVenta(double precioVenta) {
-        this.precioVenta = precioVenta;
-    }
-
     public String getDescripcion() {
-        return descripcion;
+        return _descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        _descripcion = descripcion;
     }
 
-    public int getEstado() {
-        return estado;
+    public double getPrecioVenta() {
+        return _precioVenta;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setPrecioVenta(double precioVenta) {
+        _precioVenta = precioVenta;
+    }
+    public String getImagenRuta() {
+        return _imagenRuta;
+    }
+    public void setImagenRuta(String imagenRuta) {
+        _imagenRuta = imagenRuta;
+    }
+
+    public boolean getEstado() {
+        return _estado;
+    }
+
+    public void setEstado(boolean estado) {
+        _estado = estado;
     }
 
     public String getIdCategoria() {
-        return idCategoria;
+        return _idCategoria;
     }
 
     public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+        _idCategoria = idCategoria;
     }
 }

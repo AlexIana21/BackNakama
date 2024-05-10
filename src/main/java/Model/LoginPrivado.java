@@ -1,31 +1,31 @@
 package Model;
 
 public class LoginPrivado {
-    private String idUsuario;
-    private String password;
+    private String _idUsuario;
+    private String _password;
 
     //Constructor
     public LoginPrivado(String idUsuario, String password) {
-        this.idUsuario = idUsuario;
-        this.password = password;
+        _idUsuario = idUsuario;
+        _password = password;
     }
     public LoginPrivado() {
     }
 
     //Getters y setters
     public String getIdUsuario() {
-        return idUsuario;
+        return _idUsuario;
     }
 
     public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+        _idUsuario = idUsuario;
     }
 
     public String getPassword() {
-        return password;
+        return _password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        _password = password;
     }
 }

@@ -1,23 +1,23 @@
 package Model;
 
 public class Cliente {
-    private String idCliente;
-    private String nombre;
-    private String apellido;
-    private String email;
-    private String password;
-    private String telefono;
-    private String direccion;
+    private String _idCliente;
+    private String _nombre;
+    private String _apellido;
+    private String _email;
+    private String _password;
+    private String _telefono;
+    private String _direccion;
 
     //Constructor
     public Cliente(String idCliente, String nombre, String apellido, String email, String password, String telefono, String direccion) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.password = password;
-        this.telefono = telefono;
-        this.direccion = direccion;
+        _idCliente = idCliente;
+        _nombre = nombre;
+        _apellido = apellido;
+        _email = email;
+        _password = password;
+        _telefono = telefono;
+        _direccion = direccion;
     }
 
     public Cliente () {
@@ -27,58 +27,58 @@ public class Cliente {
     //Getters y setters
 
     public String getIdCliente() {
-        return idCliente;
+        return _idCliente;
     }
 
     public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
+        _idCliente = idCliente;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
 
     public String getApellido() {
-        return apellido;
+        return _apellido;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        _apellido = apellido;
     }
 
     public String getEmail() {
-        return email;
+        return _email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        _email = email;
     }
 
     public String getPassword() {
-        return password;
+        return _password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        _password = password;
     }
 
     public String getTelefono() {
-        return telefono;
+        return _telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        _telefono = telefono;
     }
 
     public String getDireccion() {
-        return direccion;
+        return _direccion;
     }
 
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        _direccion = direccion;
     }
 }

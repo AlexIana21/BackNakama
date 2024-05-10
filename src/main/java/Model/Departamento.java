@@ -1,31 +1,31 @@
 package Model;
 
 public class Departamento {
-    private String idDepartamento;
-    private String nombre;
+    private String _idDepartamento;
+    private String _nombre;
 
     //Constructor
     public Departamento(String idDepartamento, String nombre) {
-        this.idDepartamento = idDepartamento;
-        this.nombre = nombre;
+        _idDepartamento = idDepartamento;
+        _nombre = nombre;
     }
     public Departamento () {
 
     }
     //Getters y setters
     public String getIdDepartamento() {
-        return idDepartamento;
+        return _idDepartamento;
     }
 
     public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
+        _idDepartamento = idDepartamento;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
 }

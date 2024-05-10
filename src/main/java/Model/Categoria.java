@@ -1,42 +1,42 @@
 package Model;
 
 public class Categoria {
-    private String idCategoria;
-    private String nombre;
-    private String descripcion;
+    private String _idCategoria;
+    private String _nombre;
+    private String _descripcion;
 
     //Constructor
 
     public Categoria(String idCategoria, String nombre, String descripcion) {
-        this.idCategoria = idCategoria;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+        _idCategoria = idCategoria;
+        _nombre = nombre;
+        _descripcion = descripcion;
     }
     public Categoria () {
     }
 
     //Getters y setters
     public String getIdCategoria() {
-        return idCategoria;
+        return _idCategoria;
     }
 
     public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+        _idCategoria = idCategoria;
     }
 
     public String getNombre() {
-        return nombre;
+        return _nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        _nombre = nombre;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return _descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        _descripcion = descripcion;
     }
 }
