@@ -29,11 +29,22 @@ public class CategoriaAction implements IAction {
         return strReturn;
     }
 
-    private String findAll(Categoria cat) {
+   /* private String findAll(Categoria cat) {
 
         CategoriaDao categoriaDao = new CategoriaDao();
-        ArrayList<Categoria> categorias = CategoriaDao.findAll(cat);
-        //ArrayList<Productos> peliculas = peliculaDao.findAll(null);
-        return Productos.toArrayJSon(categorias);
+        //ArrayList<Categoria> categorias = CategoriaDao.findAll(null);
+        ArrayList<Categoria> categorias;
+        categorias = CategoriaDao.findAll(null);
+        return Categoria.toArrayJSon(categorias);
+
+    }
+    */
+
+
+    private String findAll(Categoria cat) {
+        CategoriaDao categoriaDao = new CategoriaDao();
+        ArrayList<Categoria> categorias = categoriaDao.findAll(null); // Usando instancia para llamar a findAll
+        return Categoria.toArrayJSon(categorias); // Asumiendo que toArrayJSon debe ser estático correctamente
     }
 }
+

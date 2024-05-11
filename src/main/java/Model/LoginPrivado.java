@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class LoginPrivado {
     private String _idUsuario;
     private String _password;
@@ -29,3 +31,4 @@ public class LoginPrivado {
         _password = password;
     }
 }
+

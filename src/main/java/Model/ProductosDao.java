@@ -21,7 +21,7 @@ public class ProductosDao implements IDao{
     public int update(Object bean) {
 
 
-    throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -64,7 +64,11 @@ public class ProductosDao implements IDao{
                 producto.setDescripcion(rs.getString("PRD_DESCRIPCION"));
                 producto.setImagenRuta(rs.getString("PRD_IMAGEN_RUTA"));
                 producto.setEstado(rs.getInt("PRD_ESTADO") == 1);
-                producto.setIdCategoria(rs.getString("ID_CATEGORIA_PRD"));
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getString("IdCategoria"));
+               // producto.setIdCategoria(categoria);
+                producto.setIdCategoria(String.valueOf(categoria));
+
 
                 productos.add(producto);
             }
@@ -81,22 +85,20 @@ public class ProductosDao implements IDao{
 
 
 
+/*
 
-
-
-    /*public ArrayList<Productos> findAll(Object bean)
+    public ArrayList<Productos> findAll(Object bean)
     {
         ArrayList<Productos> productos = new ArrayList<>();
-        productos.add(new Productos("PROD001", "Teriyaki", 10.7, "Hamburguesa de pollo en salsa teriyaki", "../imgOrderNow/burgers/teriyaki.png", 1, "CAT01"));
+        productos.add(new Productos("PROD001", "Teriyaki", 10.7, "Hamburguesa de pollo en salsa teriyaki", "../imgOrderNow/burgers/teriyaki.png", true, "CAT01"));
         productos.add(new Productos());
         productos.add(new Productos());
         productos.add(new Productos());
         productos.add(new Productos());
         productos.add(new Productos());
         productos.add(new Productos());
-
         return productos;
     }
-    */
+   */
 
 }

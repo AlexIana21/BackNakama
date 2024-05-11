@@ -25,21 +25,21 @@ public class CategoriaDao implements IDao {
     }
 
     @Override
-   /* public ArrayList<Categoria> findAll(Object bean) {
+   public ArrayList<Categoria> findAll(Object bean) {
         ArrayList<Categoria> categorias = new ArrayList<>();
         MotorSQL motor = new MotorSQL();
         try {
             motor.connect();
             String sql = SQL_FIND_ALL;
             if (bean != null) {
-                if (((Productos) bean).getIdCategoria() != null) {
-                    sql += " AND ID_CATEGORIA='" + ((Productos) bean).getIdCategoria() + "'";
+                if (((Categoria) bean).getIdCategoria() != null) {
+                    sql += " AND ID_CATEGORIA='" + ((Categoria) bean).getIdCategoria() + "'";
                 }
-                if (((Productos) bean).getNombre() != null) {
-                    sql += " AND CAT_NOMBRE='" + ((Productos) bean).getNombre() + "'";
+                if (((Categoria) bean).getNombre() != null) {
+                    sql += " AND CAT_NOMBRE='" + ((Categoria) bean).getNombre() + "'";
                 }
-                if (((Productos) bean).getPrecioVenta() > 0) {
-                    sql += " AND CAT_DESCRIPCION=" + ((Productos) bean).getDescripcion() + "";
+                if (((Categoria) bean).getDescripcion() != null) {
+                    sql += " AND CAT_DESCRIPCION=" + ((Categoria) bean).getDescripcion() + "";
                 }
 
             }
@@ -47,7 +47,7 @@ public class CategoriaDao implements IDao {
 
 
             while (rs.next()) {
-                Productos categoria = new Productos();
+                Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getString("ID_CATEGORIA"));
                 categoria.setNombre(rs.getString("CAT_NOMBRE"));
                 categoria.setDescripcion(rs.getString("CAT_DESCRIPCION"));
@@ -62,15 +62,17 @@ public class CategoriaDao implements IDao {
             motor.disconnect();
         }
         return categorias;
-    }*/
-
-    public static ArrayList<Categoria> findAll(Object bean)
-    {
-        ArrayList<Categoria> categorias = new ArrayList<>();
-        categorias.add(new Productos("CAT01", "Burgers", "Hamburguesas"));
-        return categorias;
     }
 
+
+
+   /* public static ArrayList<Categoria> findAll(Object bean)
+    {
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        categorias.add(new Categoria("CAT01", "Burgers", "Hamburguesas"));
+        return categorias;
+    }
+    */
 
 }
 
