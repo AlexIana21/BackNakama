@@ -39,7 +39,7 @@ public class ProductosDao implements IDao{
                     sql += " AND PRD_NOMBRE='" + ((Productos)bean).getNombre() + "'";
                 }
                 if (((Productos)bean).getPrecioVenta() > 0) {
-                    sql += " AND PRD_PRECIO_VENTA=" + ((Productos)bean).getPrecioVenta() + "";
+                    sql += " AND PRD_PRECIO_VENTA=" + ((Productos)bean).getPrecioVenta() + "'";
                 }
                 if (((Productos)bean).getDescripcion() != null) {
                     sql += " AND PRD_DESCRIPCION='" + ((Productos)bean).getDescripcion() + "'";

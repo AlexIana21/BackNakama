@@ -1,5 +1,10 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+
 public class Puesto {
     private String _idPuesto;
     private String _nombre;
@@ -47,5 +52,40 @@ public class Puesto {
 
     public void setIdDepartamento(String idDepartamento) {
         _idDepartamento = idDepartamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Puesto{" +
+                "_idPuesto='" + _idPuesto + '\'' +
+                ", _nombre='" + _nombre + '\'' +
+                ", _descripcion='" + _descripcion + '\'' +
+                ", _idDepartamento='" + _idDepartamento + '\'' +
+                '}';
+    }
+
+    public static String fromArrayToJson(ArrayList<Puesto> puestos){
+        String resp = "[";
+        for (Puesto puesto : puestos) {
+            resp+= "{" +
+                    "'idPuesto':'" + puesto.getIdPuesto()+ "', "
+                    + "'nombre':'" + puesto.getNombre() + "',"
+                    + "'descripcion':'" + puesto.getDescripcion() + "', "
+                    + "'idDepartamento':'" + puesto.getIdDepartamento();
+
+            resp+=",";
+        }
+        resp = resp.substring(0, resp.length()-1);
+        resp+="]";
+        return resp;
+    }
+
+    public static String toArrayJSon(ArrayList<Puesto> puestos) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+
+        return gson.toJson(puestos);
     }
 }

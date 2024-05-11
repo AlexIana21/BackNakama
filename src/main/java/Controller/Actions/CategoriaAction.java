@@ -36,7 +36,6 @@ public class CategoriaAction implements IAction {
         ArrayList<Categoria> categorias;
         categorias = CategoriaDao.findAll(null);
         return Categoria.toArrayJSon(categorias);
-
     }
     */
 
