@@ -1,4 +1,8 @@
 package Model;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 public class Productos {
     private String _idProducto;
@@ -76,4 +80,46 @@ public class Productos {
     public void setIdCategoria(String idCategoria) {
         _idCategoria = idCategoria;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "idProducto='" + _idProducto + '\'' +
+                ", nombre='" + _nombre + '\'' +
+                ", descripcion='" + _descripcion + '\'' +
+                ", precioVenta=" + _precioVenta +
+                ", imagenRuta='" + _imagenRuta + '\'' +
+                ", estado=" + _estado +
+                ", idCategoria='" + _idCategoria + '\'' +
+                '}';
+    }
+
+    public static String fromArrayToJson(ArrayList<Productos> producto){
+        String resp = "[";
+        for (Productos productos : producto) {
+            resp+= "{" +
+                    "'idProductos':'" + productos.getIdProducto()+ "', "
+                    + "'nombre':'" + productos.getNombre() + "',"
+                    + " 'descripcion':'" + productos.getDescripcion() + "', "
+                    + "'precioVenta':" + productos.getPrecioVenta() + ", "
+                    + "'imagenRuta':" + productos.getImagenRuta() +
+                    ", 'estado':" + productos.getEstado() + ", "
+                    + "'idCategoria':" + productos.getIdCategoria() + "}";
+            resp+=",";
+        }
+        resp = resp.substring(0, resp.length()-1);
+        resp+="]";
+        return resp;
+    }
+
+    public static String toArrayJSon(ArrayList<Productos> producto) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+
+        return gson.toJson(producto);
+    }
+
 }
+
