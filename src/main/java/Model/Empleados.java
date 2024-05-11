@@ -11,12 +11,12 @@ public class Empleados {
     private Date _fechaContrato;
     private String _rolComite;
     private double _salario;
-    private int _estado;
+    private boolean _estado;
     private String _idPuesto;
     private String _idUsuario;
 
     //Constructor
-    public Empleados(String idEmpleado, String nombre, String apellido, String email, String telefono, Date fechaContrato, String rolComite, double salario, int estado, String idPuesto, String idUsuario) {
+    public Empleados(String idEmpleado, String nombre, String apellido, String email, String telefono, Date fechaContrato, String rolComite, double salario, boolean estado, String idPuesto, String idUsuario) {
         _idEmpleado = idEmpleado;
         _nombre = nombre;
         _apellido = apellido;
@@ -99,11 +99,11 @@ public class Empleados {
         _salario = salario;
     }
 
-    public int getEstado() {
+    public boolean getEstado() {
         return _estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(boolean estado) {
         _estado = estado;
     }
 

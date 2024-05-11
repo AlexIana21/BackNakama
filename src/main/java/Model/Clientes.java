@@ -1,6 +1,6 @@
 package Model;
 
-public class Cliente {
+public class Clientes {
     private String _idCliente;
     private String _nombre;
     private String _apellido;
@@ -10,7 +10,7 @@ public class Cliente {
     private String _direccion;
 
     //Constructor
-    public Cliente(String idCliente, String nombre, String apellido, String email, String password, String telefono, String direccion) {
+    public Clientes(String idCliente, String nombre, String apellido, String email, String password, String telefono, String direccion) {
         _idCliente = idCliente;
         _nombre = nombre;
         _apellido = apellido;
@@ -20,7 +20,7 @@ public class Cliente {
         _direccion = direccion;
     }
 
-    public Cliente () {
+    public Clientes() {
 
     }
 
