@@ -24,8 +24,9 @@ public class CategoriaDao implements IDao {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+
     @Override
-   public ArrayList<Categoria> findAll(Object bean) {
+    public ArrayList<Categoria> findAll(Object bean) {
         ArrayList<Categoria> categorias = new ArrayList<>();
         MotorSQL motor = new MotorSQL();
         try {
@@ -65,14 +66,18 @@ public class CategoriaDao implements IDao {
     }
 
 
+<<<<<<< HEAD
     /*
     public static ArrayList<Categoria> findAll(Object bean)
+=======
+    /*public static ArrayList<Categoria> findAll(Object bean)
+>>>>>>> 159a98d987fe032fef9b773f2c228e01fb15b2dc
     {
         ArrayList<Categoria> categorias = new ArrayList<>();
         categorias.add(new Categoria("CAT01", "Burgers", "Hamburguesas"));
         return categorias;
-    }
-    */
+    }*/
+
 
 }
 
