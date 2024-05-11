@@ -65,8 +65,8 @@ public class CategoriaDao implements IDao {
     }
 
 
-
-   /* public static ArrayList<Categoria> findAll(Object bean)
+    /*
+    public static ArrayList<Categoria> findAll(Object bean)
     {
         ArrayList<Categoria> categorias = new ArrayList<>();
         categorias.add(new Categoria("CAT01", "Burgers", "Hamburguesas"));

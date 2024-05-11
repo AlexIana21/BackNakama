@@ -66,10 +66,8 @@ public class ProductosDao implements IDao{
                 producto.setEstado(rs.getInt("PRD_ESTADO") == 1);
                 Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getString("IdCategoria"));
-               // producto.setIdCategoria(categoria);
-                producto.setIdCategoria(String.valueOf(categoria));
-
-
+                producto.setIdCategoria(categoria.getIdCategoria());
+                //producto.setIdCategoria(String.valueOf(categoria));
                 productos.add(producto);
             }
 
