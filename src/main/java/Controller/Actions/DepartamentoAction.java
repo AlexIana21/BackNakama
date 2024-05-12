@@ -32,7 +32,7 @@ public class DepartamentoAction implements IAction{
 
     private String findAll(Departamento departamento) {
         DepartamentoDao departamentoDao = new DepartamentoDao();
-        ArrayList<Departamento> departamentos = departamentoDao.findAll(null); // Usando instancia para llamar a findAll
-        return Departamento.toArrayJSon(departamentos); // Asumiendo que toArrayJSon debe ser estático correctamente
+        ArrayList<Departamento> departamentos = departamentoDao.findAll(null);
+        return Departamento.toArrayJSon(departamentos);
     }
 }

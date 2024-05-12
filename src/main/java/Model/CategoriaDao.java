@@ -66,7 +66,7 @@ public class CategoriaDao implements IDao {
     }
 
 
-<<<<<<< HEAD
+
     /*
     public static ArrayList<Categoria> findAll(Object bean)
 =======

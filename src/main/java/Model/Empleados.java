@@ -1,5 +1,7 @@
 package Model;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Empleados {
@@ -122,4 +124,56 @@ public class Empleados {
     public void setIdUsuario(String idUsuario) {
         _idUsuario = idUsuario;
     }
+
+
+
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "idEmpleado='" + _idEmpleado + '\'' +
+                ", nombre='" + _nombre + '\'' +
+                ", apellido='" + _apellido + '\'' +
+                ", email='" + _email + '\'' +
+                ", telefono='" + _telefono + '\'' +
+                ", fechaContrato=" + _fechaContrato +
+                ", rolComite='" + _rolComite + '\'' +
+                ", salario=" + _salario +
+                ", estado=" + _estado +
+                ", idPuesto='" + _idPuesto + '\'' +
+                ", idUsuario='" + _idUsuario + '\'' +
+                '}';
+    }
+
+    public static String fromArrayToJson(ArrayList<Empleados> empleados) {
+        String resp = "[";
+        for (Empleados empleado : empleados) {
+            resp += "{" +
+                    "'idEmpleado':'" + empleado.getIdEmpleado() + "', " +
+                    "'nombre':'" + empleado.getNombre() + "', " +
+                    "'apellido':'" + empleado.getApellido() + "', " +
+                    "'email':'" + empleado.getEmail() + "', " +
+                    "'telefono':'" + empleado.getTelefono() + "', " +
+                    "'fechaContrato':'" + empleado.getFechaContrato() + "', " +
+                    "'rolComite':'" + empleado.getRolComite() + "', " +
+                    "'salario':" + empleado.getSalario() + ", " +
+                    "'estado':" + empleado.getEstado() + ", " +
+                    "'idPuesto':'" + empleado.getIdPuesto() + "', " +
+                    "'idUsuario':'" + empleado.getIdUsuario() + "'}";
+            resp += ",";
+        }
+        if (!empleados.isEmpty()) {
+            resp = resp.substring(0, resp.length() - 1);
+        }
+        resp += "]";
+        return resp;
+    }
+
+    public static String toArrayJson(ArrayList<Empleados> empleados) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        return gson.toJson(empleados);
+    }
+
 }

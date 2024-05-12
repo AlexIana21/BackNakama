@@ -35,7 +35,7 @@ public class LoginPrivadoAction implements IAction{
 
         LoginPrivadoDao loginPrivadoDao = new LoginPrivadoDao();
         ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(log);
-        //ArrayList<Productos> peliculas = peliculaDao.findAll(null);
+        //ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(null);
         return LoginPrivado.toArrayJSon(loginPrivados);
     }
 }

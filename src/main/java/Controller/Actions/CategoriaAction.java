@@ -42,8 +42,8 @@ public class CategoriaAction implements IAction {
 
     private String findAll(Categoria cat) {
         CategoriaDao categoriaDao = new CategoriaDao();
-        ArrayList<Categoria> categorias = categoriaDao.findAll(null); // Usando instancia para llamar a findAll
-        return Categoria.toArrayJSon(categorias); // Asumiendo que toArrayJSon debe ser estático correctamente
+        ArrayList<Categoria> categorias = categoriaDao.findAll(null);
+        return Categoria.toArrayJSon(categorias);
     }
 }
 

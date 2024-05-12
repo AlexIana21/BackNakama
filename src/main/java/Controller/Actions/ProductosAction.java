@@ -31,10 +31,10 @@ public class ProductosAction implements IAction {
 
     private String findAll(Productos prod) {
 
-        ProductosDao peliculaDao = new ProductosDao();
-        ArrayList<Productos> peliculas = peliculaDao.findAll(prod);
-        //ArrayList<Productos> peliculas = peliculaDao.findAll(null);
-        return Productos.toArrayJSon(peliculas);
+        ProductosDao productosDao = new ProductosDao();
+        ArrayList<Productos> productos = productosDao.findAll(prod);
+        //ArrayList<Productos> productos = productosDao.findAll(null);
+        return Productos.toArrayJSon(productos);
     }
 }
 

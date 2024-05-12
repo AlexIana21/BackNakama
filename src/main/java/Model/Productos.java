@@ -1,7 +1,6 @@
 package Model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
 
 public class Productos {
@@ -115,9 +114,7 @@ public class Productos {
     public static String toArrayJSon(ArrayList<Productos> producto) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
-
         Gson gson = builder.create();
-
         return gson.toJson(producto);
     }
 
