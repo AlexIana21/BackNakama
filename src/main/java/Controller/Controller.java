@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.Actions.CategoriaAction;
+import Controller.Actions.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class Controller extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String strAction = request.getParameter("ACTION");
-        //ACTION=PRODUCTO.FIND_ALL --> HAMBURGUER.FIND_ALL // USER.FIND
+        //ACTION=PRODUCTOS.FIND_ALL --> HAMBURGUER.FIND_ALL // USER.FIND
         String[] arrayAction= new String[2];;
         if (strAction != "")
         {
@@ -27,15 +28,15 @@ public class Controller extends HttpServlet {
         }
         switch (arrayAction[0].toUpperCase())
         {
-            case "PRODUCTO":
+            case "PRODUCTOS":
             {
-                out.print(new CategoriaAction().execute(request,response, arrayAction[1]));
+                out.print(new ProductosAction().execute(request,response, arrayAction[1]));
                 break;
             }
             default:
             {
                 System.out.println(arrayAction[0]);
-                throw new ServletException ("Acción " + arrayAction[0] +" no valida");
+                throw new ServletException ("Accion " + arrayAction[0] +" no valida");
             }
         }
         System.out.println(strAction);
@@ -44,6 +45,5 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
 
 }

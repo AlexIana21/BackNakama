@@ -18,10 +18,10 @@ public class ProductosAction implements IAction {
                 break;
             case "FIND_ALL":
                 Productos prod = new Productos();
-                prod.setNombre("Teriyaki");
-                prod.setPrecioVenta(10.7);
-                strReturn = findAll(prod);
-                strReturn = findAll(prod);
+                //prod.setNombre(null);
+                //prod.setPrecioVenta(10.7);
+                strReturn = findAll();
+                //strReturn = findAll(prod);
                 break;
             default:
                 strReturn = "ERROR. Invalid Action";
@@ -29,11 +29,11 @@ public class ProductosAction implements IAction {
         return strReturn;
     }
 
-    private String findAll(Productos prod) {
+    private String findAll(/*Productos prod*/) {
 
         ProductosDao productosDao = new ProductosDao();
-        ArrayList<Productos> productos = productosDao.findAll(prod);
-        //ArrayList<Productos> productos = productosDao.findAll(null);
+        //ArrayList<Productos> productos = productosDao.findAll(prod);
+        ArrayList<Productos> productos = productosDao.findAll(null);
         return Productos.toArrayJSon(productos);
     }
 }

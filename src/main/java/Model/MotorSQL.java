@@ -17,6 +17,7 @@ public class MotorSQL {
     public void connect()
     {
         try {
+            Class.forName("oracle.jdbc.OracleDriver").newInstance();
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
             st = conn.createStatement();
             // Do something with the Connection
@@ -27,6 +28,7 @@ public class MotorSQL {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
         catch (Exception ex)
+
         {
             System.out.println(ex.getMessage());
         }

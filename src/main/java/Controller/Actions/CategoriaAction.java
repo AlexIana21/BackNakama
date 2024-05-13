@@ -39,7 +39,6 @@ public class CategoriaAction implements IAction {
     }
     */
 
-
     private String findAll(Categoria cat) {
         CategoriaDao categoriaDao = new CategoriaDao();
         ArrayList<Categoria> categorias = categoriaDao.findAll(null);
