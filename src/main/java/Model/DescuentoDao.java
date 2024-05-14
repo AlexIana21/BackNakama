@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DescuentoDao implements IDao {
 
-    private final String SQL_FIND_ALL = "SELECT * FROM DESCUENTOS WHERE 1=1 ";
+    private final String SQL_FIND_ALL = "SELECT * FROM DESCUENTO WHERE 1=1 ";
 
     @Override
     public int add(Object bean) {
@@ -53,9 +53,9 @@ public class DescuentoDao implements IDao {
             while (rs.next()) {
                 Descuento descuento = new Descuento();
                 descuento.setIdDescuento(rs.getString("ID_DESCUENTO"));
-                descuento.setNombre(rs.getString("DES_NOMBRE"));
+                descuento.setNombre(rs.getString("NOMBRE"));
                 descuento.setFechaInicio(rs.getDate("DES_FECHA_INICIO"));
-                descuento.setFechaFinal(rs.getDate("DES_FECHA_FINAL"));
+                descuento.setFechaFinal(rs.getDate("DES_FECHA_FIN"));
                 descuento.setCantidad(rs.getInt("DES_CANTIDAD"));
                 descuentos.add(descuento);
             }

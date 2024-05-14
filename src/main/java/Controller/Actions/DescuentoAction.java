@@ -18,10 +18,10 @@ public class DescuentoAction implements IAction {
                 break;
             case "FIND_ALL":
                 Descuento des = new Descuento();
-                des.setNombre("Teriyaki");
-                des.setCantidad(5);
-                strReturn = findAll(des);
-                strReturn = findAll(des);
+                //des.setNombre("Teriyaki");
+                //.setCantidad(5);
+                //strReturn = findAll(des);
+                strReturn = findAll();
                 break;
             default:
                 strReturn = "ERROR. Invalid Action";
@@ -29,10 +29,10 @@ public class DescuentoAction implements IAction {
         return strReturn;
     }
 
-    private String findAll(Descuento des) {
+    private String findAll(/*Descuento des*/) {
 
         DescuentoDao descuentoDao = new DescuentoDao();
-        ArrayList<Descuento> descuentos = descuentoDao.findAll(des);
+        ArrayList<Descuento> descuentos = descuentoDao.findAll(null);
         return Descuento.toArrayJSon(descuentos);
     }
 }

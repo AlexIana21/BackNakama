@@ -18,10 +18,10 @@ public class EmpleadosAction implements IAction {
                 break;
             case "FIND_ALL":
                 Empleados emp = new Empleados();
-                emp.setNombre("Alex");
-                emp.setSalario(5000);
-                strReturn = findAll(emp);
-                strReturn = findAll(emp);
+                //emp.setNombre("Alex");
+                //emp.setSalario(5000);
+                strReturn = findAll();
+                //strReturn = findAll(emp);
                 break;
             default:
                 strReturn = "ERROR. Invalid Action";
@@ -29,11 +29,11 @@ public class EmpleadosAction implements IAction {
         return strReturn;
     }
 
-    private String findAll(Empleados emp) {
+    private String findAll(/*Empleados emp*/) {
 
         EmpleadosDao empleadosDao = new EmpleadosDao();
-        ArrayList<Empleados> empleados = empleadosDao.findAll(emp);
-        //ArrayList<Empleados> empleados = empleadosDao.findAll(null);
+        //ArrayList<Empleados> empleados = empleadosDao.findAll(emp);
+        ArrayList<Empleados> empleados = empleadosDao.findAll(null);
         return Empleados.toArrayJson(empleados);
     }
 }

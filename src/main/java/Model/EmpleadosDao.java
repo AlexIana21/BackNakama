@@ -51,7 +51,7 @@ public class EmpleadosDao implements IDao {
                     sql += " AND EMP_ROL_COMITE='" + ((Empleados)bean).getRolComite() + "'";
                 }
                 if (((Empleados)bean).getSalario() > 0) {
-                    sql += " AND EMP_SALARIO=" + ((Empleados)bean).getSalario();
+                    sql += " AND EMP_SALARY =" + ((Empleados)bean).getSalario();
                 }
                 if (((Empleados)bean).getEstado()) {
                     sql += " AND EMP_ESTADO='" + (((Empleados)bean).getEstado() ? 1 : 0) + "'";
@@ -74,15 +74,15 @@ public class EmpleadosDao implements IDao {
                 empleado.setTelefono(rs.getString("EMP_TELEFONO"));
                 empleado.setFechaContrato(rs.getDate("EMP_FECHA_CONTRATO"));
                 empleado.setRolComite(rs.getString("EMP_ROL_COMITE"));
-                empleado.setSalario(rs.getDouble("EMP_SALARIO"));
+                empleado.setSalario(rs.getDouble("EMP_SALARY"));
                 empleado.setEstado(rs.getInt("EMP_ESTADO") == 1);
                 Puesto puesto = new Puesto();
-                puesto.setIdPuesto(rs.getString("EMP_ID_PUESTO"));
+                puesto.setIdPuesto(rs.getString("ID_PUESTO_emp"));
                 empleado.setIdPuesto(puesto.getIdPuesto());
                 LoginPrivado loginPrivado = new LoginPrivado();
-                loginPrivado.setIdUsuario(rs.getString("EMP_ID_USUARIO"));
+                loginPrivado.setIdUsuario(rs.getString("ID_USUARIO_EMP"));
                 empleado.setIdUsuario(loginPrivado.getIdUsuario());
-
+                empleados.add(empleado);
             }
 
         } catch (Exception ex) {

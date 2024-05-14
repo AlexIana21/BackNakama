@@ -18,6 +18,10 @@ public class Controller extends HttpServlet {
         //request.getMethod()
         //request.getQueryString()
         response.setContentType("text/plain;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        response.setHeader("Access-Control-Max-Age", "3600");
         PrintWriter out = response.getWriter();
         String strAction = request.getParameter("ACTION");
         //ACTION=PRODUCTOS.FIND_ALL --> HAMBURGUER.FIND_ALL // USER.FIND
@@ -28,9 +32,34 @@ public class Controller extends HttpServlet {
         }
         switch (arrayAction[0].toUpperCase())
         {
+            case "EMPLEADOS":
+            {
+                out.print(new EmpleadosAction().execute(request,response, arrayAction[1]));
+                break;
+            }
             case "PRODUCTOS":
             {
                 out.print(new ProductosAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+            case "CATEGORIA":
+            {
+                out.print(new CategoriaAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+            case "DEPARTAMENTO":
+            {
+                out.print(new DepartamentoAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+            case "DESCUENTO":
+            {
+                out.print(new DescuentoAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+            case "PUESTO":
+            {
+                out.print(new PuestoAction().execute(request,response, arrayAction[1]));
                 break;
             }
             default:
@@ -38,6 +67,8 @@ public class Controller extends HttpServlet {
                 System.out.println(arrayAction[0]);
                 throw new ServletException ("Accion " + arrayAction[0] +" no valida");
             }
+
+
         }
         System.out.println(strAction);
     }
