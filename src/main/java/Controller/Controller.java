@@ -22,6 +22,7 @@ public class Controller extends HttpServlet {
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setHeader("Access-Control-Max-Age", "3600");
+
         PrintWriter out = response.getWriter();
         String strAction = request.getParameter("ACTION");
         //ACTION=PRODUCTOS.FIND_ALL --> HAMBURGUER.FIND_ALL // USER.FIND
@@ -82,5 +83,16 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+
+// ENDPOINTS DE EJEMPLOS PARA QUE VEÁIS LA ESTRUCTURA
+        //http://localhost:8080/untitled/Controller?ACTION=PELICULA.FIND_ALL
+        // http://localhost:8080/API_JAVA_MYSQL/Controller?ACTION=PELICULA.FILTER&FILTRO=DRAMA
+//
 
 }
