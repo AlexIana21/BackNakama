@@ -58,9 +58,7 @@ public class LoginPrivado {
     public static String toArrayJSon(ArrayList<LoginPrivado> loginPrivados) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
-
         Gson gson = builder.create();
-
         return gson.toJson(loginPrivados);
     }
 

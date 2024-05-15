@@ -83,9 +83,7 @@ public class Puesto {
     public static String toArrayJSon(ArrayList<Puesto> puestos) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
-
         Gson gson = builder.create();
-
         return gson.toJson(puestos);
     }
 }

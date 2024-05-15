@@ -54,12 +54,9 @@ public class PuestoDao implements IDao{
                 puesto.setIdPuesto(rs.getString("ID_PUESTO"));
                 puesto.setNombre(rs.getString("PUE_NOMBRE"));
                 puesto.setDescripcion(rs.getString("PUE_DESCRIPCION"));
-
-                Departamento departamento = new Departamento();
-                departamento.setIdDepartamento(rs.getString("ID_DEPARTAMENTO_PUE"));
-                puesto.setIdDepartamento(String.valueOf(departamento));
-                //puesto.setIdDepartamento(rs.getString("ID_DEPARTAMENTO_PUE"));
-
+                Departamento departamentos = new Departamento();
+                departamentos.setIdDepartamento(rs.getString("ID_DEPARTAMENTO_PUE"));
+                puesto.setIdDepartamento(departamentos.getIdDepartamento());
                 puestos.add(puesto);
             }
 

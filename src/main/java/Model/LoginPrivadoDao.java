@@ -18,8 +18,6 @@ public class LoginPrivadoDao implements IDao{
 
     @Override
     public int update(Object bean) {
-
-
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -32,11 +30,11 @@ public class LoginPrivadoDao implements IDao{
             motor.connect();
             String sql = SQL_FIND_ALL;
             if (bean != null) {
-                if (((LoginPrivado) bean).getIdUsuario() != null) {
-                    sql += " AND ID_USUARIO='" + ((LoginPrivado) bean).getIdUsuario() + "'";
+                if (((LoginPrivado)bean).getIdUsuario() != null) {
+                    sql += " AND ID_USUARIO='" + ((LoginPrivado)bean).getIdUsuario() + "'";
                 }
-                if (((LoginPrivado) bean).getPassword() != null) {
-                    sql += " AND LOG_PASSWORD='" + ((LoginPrivado) bean).getPassword() + "'";
+                if (((LoginPrivado)bean).getPassword() != null) {
+                    sql += " AND LOG_PASSWORD='" + ((LoginPrivado)bean).getPassword() + "'";
                 }
 
             }
@@ -47,8 +45,6 @@ public class LoginPrivadoDao implements IDao{
                 LoginPrivado login = new LoginPrivado();
                 login.setIdUsuario(rs.getString("ID_USUARIO"));
                 login.setPassword(rs.getString("LOG_PASSWORD"));
-
-
                 loginPrivados.add(login);
             }
 

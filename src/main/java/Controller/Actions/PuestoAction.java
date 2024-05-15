@@ -44,7 +44,7 @@ public class PuestoAction implements IAction{
 
     private String findAll(Puesto puesto) {
         PuestoDao puestoDao = new PuestoDao();
-        ArrayList<Puesto> puestos = puestoDao.findAll(null); // Usando instancia para llamar a findAll
-        return Puesto.toArrayJSon(puestos); // Asumiendo que toArrayJSon debe ser estático correctamente
+        ArrayList<Puesto> puestos = puestoDao.findAll(null);
+        return Puesto.toArrayJSon(puestos);
     }
 }

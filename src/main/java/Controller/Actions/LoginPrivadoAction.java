@@ -2,7 +2,7 @@ package Controller.Actions;
 
 import Model.LoginPrivado;
 import Model.LoginPrivadoDao;
-
+import Model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +20,7 @@ public class LoginPrivadoAction implements IAction{
                 break;
             case "FIND_ALL":
                 LoginPrivado log = new LoginPrivado();
-                log.setIdUsuario("A001");
-                log.setPassword("admin1234");
-                strReturn = findAll(log);
-                strReturn = findAll(log);
+                strReturn = findAll();
                 break;
             default:
                 strReturn = "ERROR. Invalid Action";
@@ -31,11 +28,11 @@ public class LoginPrivadoAction implements IAction{
         return strReturn;
     }
 
-    private String findAll(LoginPrivado log) {
+    private String findAll(/*LoginPrivado log*/) {
 
         LoginPrivadoDao loginPrivadoDao = new LoginPrivadoDao();
-        ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(log);
-        //ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(null);
+        //ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(log);
+        ArrayList<LoginPrivado> loginPrivados = loginPrivadoDao.findAll(null);
         return LoginPrivado.toArrayJSon(loginPrivados);
     }
 }

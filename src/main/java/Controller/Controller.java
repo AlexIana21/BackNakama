@@ -62,6 +62,12 @@ public class Controller extends HttpServlet {
                 out.print(new PuestoAction().execute(request,response, arrayAction[1]));
                 break;
             }
+            case "LOGIN_PRIVADO":
+            {
+                out.print(new LoginPrivadoAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+
             default:
             {
                 System.out.println(arrayAction[0]);
