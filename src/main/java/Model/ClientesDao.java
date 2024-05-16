@@ -14,17 +14,18 @@ public class ClientesDao implements IDao <Clientes, Integer> {
     private MotorOracle _motorOracle;
 
     private final String SQL_ADD
-            = "INSERT INTO USUARIO (CL_NOMBRE , CL_APELLIDO , CL_EMAIL, CL_PASSWORD ) VALUES( ";
+            = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE , CL_APELLIDO , CL_EMAIL, CL_PASSWORD ) VALUES( ";
 
-    public ClientesDao(String db) {
-        MotorOracle MotorOracle = DatabaseFactory.getDatabase(db);
+    public ClientesDao(String db) {_motorOracle = DatabaseFactory.getDatabase(db);
     }
 
     @Override
     public int add(Clientes bean) {
         _motorOracle.connect();
         String sql = "";
-        sql+= "INSERT INTO USUARIO (CL_NOMBRE , CL_APELLIDO , CL_EMAIL, CL_PASSWORD ) VALUES( ";
+        sql+= "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE , CL_APELLIDO , CL_EMAIL, CL_PASSWORD ) VALUES( ";
+        sql+= "'" + bean.getIdCliente() + "'";
+        sql+= ",";
         sql+= "'" + bean.getNombre() + "'";
         sql+= ",";
         sql+= "'" + bean.getApellido() + "'";
@@ -33,6 +34,7 @@ public class ClientesDao implements IDao <Clientes, Integer> {
         sql+= ",";
         sql+= "'" + bean.getPassword()+ "'";
         sql+= ")";
+
 
         //int lastId = "SELECT MAX(ID) from USUARIO";
 

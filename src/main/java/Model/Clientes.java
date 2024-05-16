@@ -1,5 +1,8 @@
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class Clientes {
     private String _idCliente;
     private String _nombre;
@@ -64,4 +67,14 @@ public class Clientes {
         _password = password;
     }
 
+
+    public static String fromObjectToJSON(Clientes cliente) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(cliente);
+
+        return resp;
+    }
 }
