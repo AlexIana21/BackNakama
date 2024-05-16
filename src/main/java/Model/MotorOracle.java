@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class MotorSQL {
+public class MotorOracle {
 
     private Connection conn = null;
     private Statement st = null;
@@ -32,6 +32,16 @@ public class MotorSQL {
         {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public int execute(String sql) {
+        int resp = 0;
+        try {
+            resp = st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception: " + ex.getMessage());
+        }
+        return resp;
     }
 
     public ResultSet executeQuery(String sql) {

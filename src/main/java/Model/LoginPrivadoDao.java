@@ -3,11 +3,11 @@ package Model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class LoginPrivadoDao implements IDao{
+public class LoginPrivadoDao implements IDao <LoginPrivado, Integer>{
     private final String SQL_FIND_ALL = "SELECT * FROM LOGIN_PRIVADO WHERE 1=1 ";
 
     @Override
-    public int add(Object bean) {
+    public int add(LoginPrivado bean) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -17,15 +17,15 @@ public class LoginPrivadoDao implements IDao{
     }
 
     @Override
-    public int update(Object bean) {
+    public int update(LoginPrivado bean) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
 
     @Override
-    public ArrayList<LoginPrivado> findAll(Object bean) {
+    public ArrayList<LoginPrivado> findAll(LoginPrivado bean) {
         ArrayList<LoginPrivado> loginPrivados = new ArrayList<>();
-        MotorSQL motor = new MotorSQL();
+        MotorOracle motor = new MotorOracle();
         try {
             motor.connect();
             String sql = SQL_FIND_ALL;

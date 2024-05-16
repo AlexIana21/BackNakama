@@ -16,8 +16,6 @@ public class Clientes {
         _apellido = apellido;
         _email = email;
         _password = password;
-        _telefono = telefono;
-        _direccion = direccion;
     }
 
     public Clientes() {
@@ -66,19 +64,4 @@ public class Clientes {
         _password = password;
     }
 
-    public String getTelefono() {
-        return _telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        _telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return _direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        _direccion = direccion;
-    }
 }

@@ -1,33 +1,32 @@
 package Model;
-import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class ProductosDao implements IDao{
+public class ProductosDao implements IDao <Productos, Integer> {
 
     private final String SQL_FIND_ALL = "SELECT * FROM PRODUCTOS WHERE 1=1 ";
 
     @Override
-    public int add(Object bean) {
+        public int add(Productos bean) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public int delete(Integer e) {
+    public int delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public int update(Object bean) {
+    public int update(Productos bean) {
 
 
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public ArrayList<Productos> findAll(Object bean) {
+    public ArrayList<Productos> findAll(Productos bean) {
         ArrayList<Productos> productos = new ArrayList<>();
-        MotorSQL motor = new MotorSQL();
+        MotorOracle motor = new MotorOracle();
         try {
             motor.connect();
             String sql = SQL_FIND_ALL;
@@ -67,7 +66,6 @@ public class ProductosDao implements IDao{
                 Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getString("ID_CATEGORIA_PRD"));
                 producto.setIdCategoria(categoria.getIdCategoria());
-                //producto.setIdCategoria(String.valueOf(categoria));
                 productos.add(producto);
             }
 
@@ -80,21 +78,5 @@ public class ProductosDao implements IDao{
         }
         return productos;
     }
-
-/*
-
-    public ArrayList<Productos> findAll(Object bean)
-    {
-        ArrayList<Productos> productos = new ArrayList<>();
-        productos.add(new Productos("PROD001", "Teriyaki", 10.7, "Hamburguesa de pollo en salsa teriyaki", "../imgOrderNow/burgers/teriyaki.png", true, "CAT01"));
-        productos.add(new Productos());
-        productos.add(new Productos());
-        productos.add(new Productos());
-        productos.add(new Productos());
-        productos.add(new Productos());
-        productos.add(new Productos());
-        return productos;
-    }
-   */
 
 }

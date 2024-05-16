@@ -1,14 +1,13 @@
 package Model;
-import java.lang.invoke.MethodHandles;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DescuentoDao implements IDao {
+public class DescuentoDao implements IDao <Descuento, Integer> {
 
     private final String SQL_FIND_ALL = "SELECT * FROM DESCUENTO WHERE 1=1 ";
 
     @Override
-    public int add(Object bean) {
+    public int add(Descuento bean) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -18,16 +17,16 @@ public class DescuentoDao implements IDao {
     }
 
     @Override
-    public int update(Object bean) {
+    public int update(Descuento bean) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
 
 
-    public ArrayList<Descuento> findAll(Object bean) {
+    public ArrayList<Descuento> findAll(Descuento bean) {
         ArrayList<Descuento> descuentos = new ArrayList<>();
-        MotorSQL motor = new MotorSQL();
+        MotorOracle motor = new MotorOracle();
         try {
             motor.connect();
             String sql = SQL_FIND_ALL;
