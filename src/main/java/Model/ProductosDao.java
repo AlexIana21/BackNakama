@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class ProductosDao implements IDao <Productos, Integer> {
 
-    private final String SQL_FIND_ALL = "SELECT * FROM PRODUCTOS WHERE 1=1 ";
+    private final String SQL_FIND_ALL = "select * from PRODUCTOS WHERE 1=1 ORDER BY ID_PRODUCTO";
 
     private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO =  ";
 
