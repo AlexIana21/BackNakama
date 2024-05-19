@@ -14,8 +14,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
             "SELECT ID_CATEGORIA_PRD " +
                     "FROM PRODUCTOS" ;
 
-    private final String SQL_ADD =
-            "INSERT INTO PRODUCTOS (`ID_PRODUCTO`, `PRD_NOMBRE`, `PRD_PRECIO_VENTA`, `PRD_DESCRIPCION`, `PRD_IMAGEN_RUTA`, `PRD_ESTADO`, `ID_CATEGORIA_PRD`) VALUES ";
+    private final String SQL_ADD = "INSERT INTO PRODUCTOS (ID_PRODUCTO, PRD_NOMBRE, PRD_PRECIO_VENTA, PRD_DESCRIPCION, PRD_IMAGEN_RUTA, PRD_ESTADO, ID_CATEGORIA_PRD) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public int add(Productos bean) {
@@ -28,13 +27,21 @@ public class ProductosDao implements IDao <Productos, Integer> {
             System.out.println("Preparing statement...");
             pstmt = motor.prepareStatement(SQL_ADD);
             System.out.println("Setting parameters...");
+            System.out.println("ID_PRODUCTO: " + bean.getIdProducto());
             pstmt.setString(1, bean.getIdProducto());
+            System.out.println("PRD_NOMBRE: " + bean.getNombre());
             pstmt.setString(2, bean.getNombre());
+            System.out.println("PRD_PRECIO_VENTA: " + bean.getPrecioVenta());
             pstmt.setDouble(3, bean.getPrecioVenta());
+            System.out.println("PRD_DESCRIPCION: " + bean.getDescripcion());
             pstmt.setString(4, bean.getDescripcion());
+            System.out.println("PRD_IMAGEN_RUTA: " + bean.getImagenRuta());
             pstmt.setString(5, bean.getImagenRuta());
+            System.out.println("PRD_ESTADO: " + bean.getEstado());
             pstmt.setBoolean(6, bean.getEstado());
+            System.out.println("ID_CATEGORIA_PRD: " + bean.getIdCategoria());
             pstmt.setString(7, bean.getIdCategoria());
+
             System.out.println("Executing update...");
             resp = pstmt.executeUpdate();
             System.out.println("Update executed, response: " + resp);
@@ -52,7 +59,6 @@ public class ProductosDao implements IDao <Productos, Integer> {
         }
         return resp;
     }
-
 
 
     @Override
@@ -85,7 +91,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ArrayList<Productos> findAllByCategory(Productos bean ) {
+    public ArrayList<Productos> findAllByCategory(Productos bean, boolean orderByIdProducto ) {
         ArrayList<Productos> productos = new ArrayList<>();
         MotorOracle motor = new MotorOracle();
         try {

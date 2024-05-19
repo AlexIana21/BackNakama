@@ -3,6 +3,8 @@ package Model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+
 public class Clientes {
     private String _idCliente;
     private String _nombre;
@@ -75,5 +77,12 @@ public class Clientes {
         String resp = gson.toJson(cliente);
 
         return resp;
+    }
+
+    public static String toArrayJSon(ArrayList<Clientes> cliente) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        return gson.toJson(cliente);
     }
 }

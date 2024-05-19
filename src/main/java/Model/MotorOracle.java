@@ -10,7 +10,7 @@ public class MotorOracle {
     private static final String URL  = "jdbc:oracle:thin:@reto01.c5ayckwwkpt6.us-east-1.rds.amazonaws.com:1521:orcl"; // este es el nuestro cambiado ya
     private static final String USER  = "admin";
     private static final String PASSWORD  = "123456789";
-    public void connect()
+    public Void connect()
     {
         try {
             Class.forName("oracle.jdbc.OracleDriver").newInstance();
@@ -28,6 +28,7 @@ public class MotorOracle {
         {
             System.out.println(ex.getMessage());
         }
+        return null;
     }
 
     public int execute(String sql) {
@@ -93,6 +94,7 @@ public class MotorOracle {
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return conn.prepareStatement(sql);
     }
+
 
 
 }

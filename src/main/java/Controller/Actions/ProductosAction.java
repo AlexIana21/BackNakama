@@ -14,7 +14,7 @@ public class ProductosAction implements IAction {
         switch (action)
         {
             case "FILTER":
-                strReturn = findByFilter(request, response);
+                //strReturn = findByFilter(request, response);
                 break;
             case "FIND_ALL":
                 Productos prod = new Productos();
@@ -63,14 +63,14 @@ public class ProductosAction implements IAction {
         }
     }
 
-    private String findByFilter(HttpServletRequest request, HttpServletResponse response) {
+    /*private String findByFilter(HttpServletRequest request, HttpServletResponse response) {
         ProductosDao productosDao = new ProductosDao();
         String ID_CATEGORIA_PRD = request.getParameter("FILTRO");
         Productos productos = new Productos();
         productos.setIdCategoria(ID_CATEGORIA_PRD );
-        ArrayList<Productos> producto = productosDao.findAllByCategory(null);
+        ArrayList<Productos> producto = productosDao.findAllByCategory("");
         return Productos.toArrayJSon(producto);
-    }
+    }*/
 
     private String add(HttpServletRequest request) {
         ProductosDao productosDao = new ProductosDao();
