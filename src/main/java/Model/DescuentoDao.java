@@ -67,27 +67,4 @@ public class DescuentoDao implements IDao <Descuento, Integer> {
         return descuentos;
     }
 
-    /*
-  public ArrayList<Descuento> findAll(Object bean) {
-    ArrayList<Descuento> descuentos = new ArrayList<>();
-    // Establecer la fecha de inicio
-    Calendar calendarInicio = Calendar.getInstance();
-    calendarInicio.set(2024, Calendar.FEBRUARY, 24, 0, 0, 0);
-    calendarInicio.set(Calendar.MILLISECOND, 0);
-    Date fechaInicio = calendarInicio.getTime();
-
-    // Establecer la fecha de fin
-    Calendar calendarFin = Calendar.getInstance();
-    calendarFin.set(2024, Calendar.FEBRUARY, 28, 23, 59, 59);
-    calendarFin.set(Calendar.MILLISECOND, 999);
-    Date fechaFin = calendarFin.getTime();
-
-    // nuevo Descuento a la lista
-    descuentos.add(new Descuento("DE01", "halloween", fechaInicio, fechaFin, 5));
-
-    return descuentos;
-}
-    */
-
-
 }

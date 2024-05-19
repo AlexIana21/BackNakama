@@ -15,15 +15,15 @@ public class ClientesAction implements IAction {
         String strReturn ="";
         switch (action)
          {
-           /* case "LOGIN":
-                //strReturn = login(request, response);
-                break;*/
+           case "LOGIN":
+                strReturn = login(request, response);
+                break;
             case "REGISTER":
                 strReturn = register(request, response);
                 break;
-            /*case "FIND":
-                //cadDestino = findByFilter(request, response);
-                break;*/
+            case "FIND":
+                /*strReturn = f(request, response);*/
+                break;
 
         }
         return strReturn;

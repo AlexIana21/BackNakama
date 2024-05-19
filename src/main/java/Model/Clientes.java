@@ -9,11 +9,10 @@ public class Clientes {
     private String _apellido;
     private String _email;
     private String _password;
-    private String _telefono;
-    private String _direccion;
+
 
     //Constructor
-    public Clientes(String idCliente, String nombre, String apellido, String email, String password, String telefono, String direccion) {
+    public Clientes(String idCliente, String nombre, String apellido, String email, String password) {
         _idCliente = idCliente;
         _nombre = nombre;
         _apellido = apellido;

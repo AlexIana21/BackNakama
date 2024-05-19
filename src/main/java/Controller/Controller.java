@@ -25,6 +25,7 @@ public class Controller extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         String strAction = request.getParameter("ACTION");
+
         //ACTION=PRODUCTOS.FIND_ALL --> HAMBURGUER.FIND_ALL // USER.FIND
         String[] arrayAction= new String[2];;
         if (strAction != "")
