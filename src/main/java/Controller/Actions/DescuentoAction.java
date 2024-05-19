@@ -1,4 +1,4 @@
-package Controller.Actions;
+/*package Controller.Actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,10 +29,10 @@ public class DescuentoAction implements IAction {
         return strReturn;
     }
 
-    private String findAll(/*Descuento des*/) {
+    private String findAll(Descuento des) {
 
         DescuentoDao descuentoDao = new DescuentoDao();
         ArrayList<Descuento> descuentos = descuentoDao.findAll(null);
         return Descuento.toArrayJSon(descuentos);
     }
-}
+}*/

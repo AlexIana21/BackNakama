@@ -54,11 +54,6 @@ public class Controller extends HttpServlet {
                 out.print(new DepartamentoAction().execute(request,response, arrayAction[1]));
                 break;
             }
-            case "DESCUENTO":
-            {
-                out.print(new DescuentoAction().execute(request,response, arrayAction[1]));
-                break;
-            }
             case "PUESTO":
             {
                 out.print(new PuestoAction().execute(request,response, arrayAction[1]));
@@ -73,6 +68,12 @@ public class Controller extends HttpServlet {
             case "CLIENTES":
             {
                 out.print(new ClientesAction().execute(request,response, arrayAction[1]));
+                break;
+            }
+
+            case "PEDIDOS":
+            {
+                out.print(new PedidosAction().execute(request,response, arrayAction[1]));
                 break;
             }
 

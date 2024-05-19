@@ -22,11 +22,9 @@ public class ProductosDao implements IDao <Productos, Integer> {
         MotorOracle motor = new MotorOracle();
         PreparedStatement pstmt = null;
         try {
-            System.out.println("Connecting to database...");
+            // Aqui esta el codigo para ver los erroes que me daba pero se puede hacer sin sout
             motor.connect();
-            System.out.println("Preparing statement...");
             pstmt = motor.prepareStatement(SQL_ADD);
-            System.out.println("Setting parameters...");
             System.out.println("ID_PRODUCTO: " + bean.getIdProducto());
             pstmt.setString(1, bean.getIdProducto());
             System.out.println("PRD_NOMBRE: " + bean.getNombre());
@@ -42,7 +40,6 @@ public class ProductosDao implements IDao <Productos, Integer> {
             System.out.println("ID_CATEGORIA_PRD: " + bean.getIdCategoria());
             pstmt.setString(7, bean.getIdCategoria());
 
-            System.out.println("Executing update...");
             resp = pstmt.executeUpdate();
             System.out.println("Update executed, response: " + resp);
         } catch (SQLException e) {

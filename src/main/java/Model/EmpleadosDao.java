@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class EmpleadosDao implements IDao <Empleados, Integer>{
     private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ";
 
+
     @Override
     public int add(Empleados bean) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -74,7 +75,7 @@ public class EmpleadosDao implements IDao <Empleados, Integer>{
                 empleado.setFechaContrato(rs.getDate("EMP_FECHA_CONTRATO"));
                 empleado.setRolComite(rs.getString("EMP_ROL_COMITE"));
                 empleado.setSalario(rs.getDouble("EMP_SALARY"));
-                empleado.setEstado(rs.getInt("EMP_ESTADO") == 1);
+                empleado.setEstado(rs.getBoolean("EMP_ESTADO") == true);
                 Puesto puesto = new Puesto();
                 puesto.setIdPuesto(rs.getString("ID_PUESTO_emp"));
                 empleado.setIdPuesto(puesto.getIdPuesto());
