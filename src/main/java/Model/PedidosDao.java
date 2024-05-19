@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class PedidosDao implements IDao<Pedidos, Integer> {
     private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_HORA, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private final String SQL_FIND_ALL = "select * from PEDIDOS WHERE 1=1 ORDER BY ID_PRODUCTO";
+    private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
 
     @Override
     public int add(Pedidos bean) {
@@ -49,8 +49,7 @@ public class PedidosDao implements IDao<Pedidos, Integer> {
         return resp;
     }
 
-
-    @Override
+   /* @Override
     public ArrayList<Pedidos> findAll(Pedidos bean) {
         ArrayList<Pedidos> pedidos = new ArrayList<>();
         MotorOracle motor = new MotorOracle();
@@ -112,6 +111,71 @@ public class PedidosDao implements IDao<Pedidos, Integer> {
             pedidos.clear();
         }
         finally {
+            motor.disconnect();
+        }
+        return pedidos;
+    }
+    */
+
+
+   @Override
+    public ArrayList<Pedidos> findAll(Pedidos bean) {
+        ArrayList<Pedidos> pedidos = new ArrayList<>();
+        MotorOracle motor = new MotorOracle();
+        try {
+            motor.connect();
+            String sql = SQL_FIND_ALL;
+            if (bean != null) {
+                if (bean.getIdPedido() != null) {
+                    sql += " AND ID_PEDIDO='" + bean.getIdPedido() + "'";
+                }
+                if (bean.getHora() != null) {
+                    sql += " AND PED_HORA='" + new Timestamp(bean.getHora().getTime()) + "'";
+                }
+                if (bean.getFecha() != null) {
+                    sql += " AND PED_FECHA='" + new Date(bean.getFecha().getTime()) + "'";
+                }
+                if (bean.getTlf() != null) {
+                    sql += " AND PED_TELEFONO='" + bean.getTlf() + "'";
+                }
+                if (bean.getDireccion() != null) {
+                    sql += " AND PED_DIRECCION='" + bean.getDireccion() + "'";
+                }
+                if (bean.getEstado() != null) {
+                    sql += " AND PED_ESTADO=" + (bean.getEstado() ? 1 : 0);
+                }
+                if (bean.getPrecio() != null && bean.getPrecio() > 0) {
+                    sql += " AND PED_PRECIO=" + bean.getPrecio();
+                }
+                if (bean.getIdCliente() != null) {
+                    sql += " AND ID_CLIENTE_PED='" + bean.getIdCliente() + "'";
+                }
+                if (bean.getIdEmpleado() != null) {
+                    sql += " AND ID_EMPLEADO_PED='" + bean.getIdEmpleado() + "'";
+                }
+            }
+
+            System.out.println("Executing query: " + sql);
+            ResultSet rs = motor.executeQuery(sql);
+
+            while (rs.next()) {
+                Pedidos pedido = new Pedidos();
+                pedido.setIdPedido(rs.getString("ID_PEDIDO"));
+                pedido.setHora(rs.getTimestamp("PED_HORA"));
+                pedido.setFecha(rs.getDate("PED_FECHA"));
+                pedido.setTlf(rs.getString("PED_TELEFONO"));
+                pedido.setDireccion(rs.getString("PED_DIRECCION"));
+                pedido.setEstado(rs.getBoolean("PED_ESTADO"));
+                pedido.setPrecio(rs.getDouble("PED_PRECIO"));
+                pedido.setIdCliente(rs.getString("ID_CLIENTE_PED"));
+                pedido.setIdEmpleado(rs.getString("ID_EMPLEADO_PED"));
+
+                pedidos.add(pedido);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar pedidos: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
             motor.disconnect();
         }
         return pedidos;
