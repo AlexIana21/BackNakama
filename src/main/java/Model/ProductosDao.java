@@ -7,8 +7,9 @@ import java.sql.*;
 public class ProductosDao implements IDao <Productos, Integer> {
 
     private final String SQL_FIND_ALL = "select * from PRODUCTOS WHERE PRD_ESTADO =1 ";
+    private final String SQL_FIND_ALL_ADMIN = "select * from PRODUCTOS WHERE 1=1 ";
 
-    private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO =  ";
+    private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO = ";
 
     private final String SQL_FIND_BY_FILTER =
             "SELECT ID_CATEGORIA_PRD " +
@@ -64,17 +65,18 @@ public class ProductosDao implements IDao <Productos, Integer> {
         MotorOracle motor = new MotorOracle();
         try {
             motor.connect();
-            String sql = SQL_DELETE + id ;
+            String sql = SQL_DELETE + id;
             motor.execute("SET FOREIGN_KEY_CHECKS=0;");
             resp = motor.execute(sql);
             motor.execute("SET FOREIGN_KEY_CHECKS=1;");
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             motor.disconnect();
         }
         if (resp > 0) {
-            System.out.println("Borrado con exito.");
+            System.out.println("Borrado con éxito.");
         } else {
             System.out.println("No se pudo borrar.");
         }
