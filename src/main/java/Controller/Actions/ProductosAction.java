@@ -38,22 +38,18 @@ public class ProductosAction implements IAction {
     private String delete(HttpServletRequest request) {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
-            try {
-                int id = Integer.parseInt(idParam);
-                ProductosDao productosDao = new ProductosDao();
-                int result = productosDao.delete(String.valueOf(id));
-                if (result > 0) {
-                    return "Producto eliminado con éxito";
-                } else {
-                    return "ERROR. No se pudo eliminar el producto";
-                }
-            } catch (NumberFormatException e) {
-                return "ERROR. Invalid ID format";
+            ProductosDao productosDao = new ProductosDao();
+            int result = productosDao.delete(idParam);
+            if (result > 0) {
+                return "Producto eliminado con éxito";
+            } else {
+                return "ERROR. No se pudo eliminar el producto";
             }
         } else {
             return "ERROR. Missing ID parameter";
         }
     }
+
 
 
     private String add(HttpServletRequest request) {

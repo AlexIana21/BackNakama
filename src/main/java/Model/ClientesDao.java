@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClientesDao implements IDao<Clientes, Integer> {
+public class ClientesDao implements IDao<Clientes, String> {
 
     private final String SQL_ADD = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD) VALUES (?, ?, ?, ?, ?)";
     private final String SQL_GET_MAX_ID = "SELECT MAX(ID_CLIENTE) FROM CLIENTES";

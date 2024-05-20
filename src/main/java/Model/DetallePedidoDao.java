@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class DetallePedidoDao implements  IDao <DetallePedido, Integer>{
+public class DetallePedidoDao implements  IDao <DetallePedido, String>{
 
     private final String SQL_FIND_ALL = "SELECT * FROM DESCUENTO WHERE 1=1 ";
 
@@ -12,7 +12,7 @@ public class DetallePedidoDao implements  IDao <DetallePedido, Integer>{
     }
 
     @Override
-    public int delete(Integer bean) {
+    public int delete(String bean) {
         return 0;
     }
 

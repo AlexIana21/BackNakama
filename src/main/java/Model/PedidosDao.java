@@ -4,7 +4,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class PedidosDao implements IDao<Pedidos, Integer> {
+public class PedidosDao implements IDao<Pedidos, String> {
     private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_HORA, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
@@ -183,7 +183,7 @@ public class PedidosDao implements IDao<Pedidos, Integer> {
     }
 
     @Override
-    public int delete(Integer bean) {
+    public int delete(String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

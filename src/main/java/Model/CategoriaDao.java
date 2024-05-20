@@ -2,7 +2,7 @@ package Model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class CategoriaDao implements IDao <Categoria, Integer> {
+public class CategoriaDao implements IDao <Categoria, String> {
 
     private final String SQL_FIND_ALL = "SELECT * FROM CATEGORIA WHERE 1=1 ";
 
@@ -12,7 +12,7 @@ public class CategoriaDao implements IDao <Categoria, Integer> {
     }
 
     @Override
-    public int delete(Integer e) {
+    public int delete(String e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -3,7 +3,7 @@ package Model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class PuestoDao implements IDao <Puesto, Integer>{
+public class PuestoDao implements IDao <Puesto, String>{
     private final String SQL_FIND_ALL = "SELECT * FROM PUESTO WHERE 1=1 ";
 
     @Override
@@ -12,7 +12,7 @@ public class PuestoDao implements IDao <Puesto, Integer>{
     }
 
     @Override
-    public int delete(Integer e) {
+    public int delete(String id) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
