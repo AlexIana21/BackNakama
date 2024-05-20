@@ -83,8 +83,6 @@ public class ProductosDao implements IDao <Productos, Integer> {
 
     @Override
     public int update(Productos bean) {
-
-
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

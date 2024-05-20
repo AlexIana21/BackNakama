@@ -11,7 +11,7 @@ public class ClientesDao implements IDao<Clientes, Integer> {
 
     private final String SQL_ADD = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD) VALUES (?, ?, ?, ?, ?)";
     private final String SQL_GET_MAX_ID = "SELECT MAX(ID_CLIENTE) FROM CLIENTES";
-    private final String SQL_FIND = "SELECT * FROM CLIENTES WHERE 1=1";
+    private final String SQL_FIND = "SELECT * FROM CLIENTES WHERE 1=1 ORDER BY ID_CLIENTE";
 
     private MotorOracle _motorOracle;
 
@@ -118,14 +118,14 @@ public class ClientesDao implements IDao<Clientes, Integer> {
         return cliente;
     }
 
-    /*
+
     public ArrayList<Clientes> find(Clientes filter) {
         ArrayList<Clientes> clientes = new ArrayList<>();
-        Connection conn = null;
+        _motorOracle.connect();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            conn = _motorOracle.connect();
+            _motorOracle.connect();
             StringBuilder sql = new StringBuilder(SQL_FIND);
 
             if (filter.getNombre() != null && !filter.getNombre().isEmpty()) {
@@ -138,7 +138,7 @@ public class ClientesDao implements IDao<Clientes, Integer> {
                 sql.append(" AND CL_EMAIL = ?");
             }
 
-            pstmt = conn.prepareStatement(sql.toString());
+            pstmt = _motorOracle.prepareStatement(sql.toString());
 
             int index = 1;
 
@@ -169,11 +169,10 @@ public class ClientesDao implements IDao<Clientes, Integer> {
             try {
                 if (rs != null) rs.close();
                 if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
         }
         return clientes;
-    }*/
+    }
 }

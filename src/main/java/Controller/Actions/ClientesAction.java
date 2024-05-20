@@ -21,7 +21,7 @@ public class ClientesAction implements IAction {
                 strReturn = register(request, response);
                 break;
             case "FIND":
-               // strReturn = find(request, response);
+                strReturn = find(request, response);
                 break;
         }
         return strReturn;
@@ -63,7 +63,7 @@ public class ClientesAction implements IAction {
     }
 
 
-   /* private String find(HttpServletRequest request, HttpServletResponse response) {
+   private String find(HttpServletRequest request, HttpServletResponse response) {
         String nombre = request.getParameter("CL_NOMBRE");
         String apellido = request.getParameter("CL_APELLIDO");
         String email = request.getParameter("CL_EMAIL");
@@ -77,5 +77,5 @@ public class ClientesAction implements IAction {
         ArrayList<Clientes> clientes = clientesDao.find(filter);
 
         return Clientes.toArrayJSon(clientes);
-    }*/
+    }
 }
