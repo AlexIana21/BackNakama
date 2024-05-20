@@ -18,6 +18,7 @@ public class PedidosDao implements IDao<Pedidos, Integer> {
             motor.connect();
             pstmt = motor.prepareStatement(SQL_ADD);
 
+            // QUITAR
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class ProductosDao implements IDao <Productos, Integer> {
 
-    private final String SQL_FIND_ALL = "select * from PRODUCTOS WHERE 1=1 ORDER BY ID_PRODUCTO";
+    private final String SQL_FIND_ALL = "select * from PRODUCTOS WHERE PRD_ESTADO =1 ";
 
     private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO =  ";
 
@@ -115,6 +115,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
                     sql += " AND ID_CATEGORIA_PRD='" + ((Productos)bean).getIdCategoria() + "'";
                 }
             }
+            sql += " ORDER BY ID_PRODUCTO";
             ResultSet rs = motor.executeQuery(sql);
 
             while (rs.next()) {
