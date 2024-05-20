@@ -73,7 +73,7 @@ public class ClientesDao implements IDao<Clientes, Integer> {
     }
 
     @Override
-    public int delete(Integer bean) {
+    public int delete(String bean) {
         return 0;
     }
 

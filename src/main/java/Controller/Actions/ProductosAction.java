@@ -34,13 +34,14 @@ public class ProductosAction implements IAction {
         return Productos.toArrayJSon(productos);
     }
 
+
     private String delete(HttpServletRequest request) {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
             try {
                 int id = Integer.parseInt(idParam);
                 ProductosDao productosDao = new ProductosDao();
-                int result = productosDao.delete(id);
+                int result = productosDao.delete(String.valueOf(id));
                 if (result > 0) {
                     return "Producto eliminado con éxito";
                 } else {
@@ -53,6 +54,7 @@ public class ProductosAction implements IAction {
             return "ERROR. Missing ID parameter";
         }
     }
+
 
     private String add(HttpServletRequest request) {
         ProductosDao productosDao = new ProductosDao();

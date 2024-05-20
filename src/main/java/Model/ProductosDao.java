@@ -9,7 +9,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
     private final String SQL_FIND_ALL = "select * from PRODUCTOS WHERE PRD_ESTADO =1 ";
     private final String SQL_FIND_ALL_ADMIN = "select * from PRODUCTOS WHERE 1=1 ";
 
-    private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO = ";
+    private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO = ? ";
 
     private final String SQL_FIND_BY_FILTER =
             "SELECT ID_CATEGORIA_PRD " +
@@ -60,25 +60,26 @@ public class ProductosDao implements IDao <Productos, Integer> {
 
 
     @Override
-    public int delete(Integer id) {
+    public int delete(String id) {
         int resp = 0;
         MotorOracle motor = new MotorOracle();
+        PreparedStatement pstmt = null;
         try {
             motor.connect();
-            String sql = SQL_DELETE + id;
-            motor.execute("SET FOREIGN_KEY_CHECKS=0;");
-            resp = motor.execute(sql);
-            motor.execute("SET FOREIGN_KEY_CHECKS=1;");
-        } catch (Exception e) {
+            pstmt = motor.prepareStatement(SQL_DELETE);
+            pstmt.setString(1, id);
+            resp = pstmt.executeUpdate();
+        } catch (SQLException e) {
             System.out.println("Error al eliminar producto: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            motor.disconnect();
-        }
-        if (resp > 0) {
-            System.out.println("Borrado con éxito.");
-        } else {
-            System.out.println("No se pudo borrar.");
+            try {
+                if (pstmt != null) pstmt.close();
+                motor.disconnect();
+            } catch (SQLException se) {
+                System.out.println("Error al cerrar recursos: " + se.getMessage());
+                se.printStackTrace();
+            }
         }
         return resp;
     }
