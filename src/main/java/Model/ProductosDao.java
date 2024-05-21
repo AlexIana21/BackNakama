@@ -127,7 +127,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
                     sql += "ID_CATEGORIA_PRD='" + bean.getIdCategoria() + "'";
                 }
 
-                sql += " WHERE PRD_NOMBRE=" + bean.getNombre() + ";";
+                sql += " WHERE ID_PRODCUTO=" + bean.getIdProducto() + ";";
                 System.out.println(sql);
                 resp = motor.execute(sql);
             }
@@ -145,6 +145,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
         }
         return resp;
     }
+
 
 
     public ArrayList<Productos> findAllByCategory(Productos bean, boolean orderByIdProducto ) {
