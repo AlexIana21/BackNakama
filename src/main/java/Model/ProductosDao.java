@@ -11,9 +11,11 @@ public class ProductosDao implements IDao <Productos, Integer> {
 
     private final String SQL_DELETE = "DELETE FROM PRODUCTOS WHERE ID_PRODUCTO = ? ";
 
+    private final String SQL_UPDATE = "UPDATE PRODUCTOS SET ";
+
     private final String SQL_FIND_BY_FILTER =
             "SELECT ID_CATEGORIA_PRD " +
-                    "FROM PRODUCTOS" ;
+                    "FROM PRODUCTOS";
 
     private final String SQL_ADD = "INSERT INTO PRODUCTOS (ID_PRODUCTO, PRD_NOMBRE, PRD_PRECIO_VENTA, PRD_DESCRIPCION, PRD_IMAGEN_RUTA, PRD_ESTADO, ID_CATEGORIA_PRD) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -86,8 +88,64 @@ public class ProductosDao implements IDao <Productos, Integer> {
 
     @Override
     public int update(Productos bean) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int resp = 0;
+        MotorOracle motor = new MotorOracle();
+        String sql;
+        try {
+            motor.connect();
+
+            if (bean == null) {
+                System.out.println("Introduzca datos a modificar");
+            } else {
+
+                sql = SQL_UPDATE;
+                if (bean.getIdCategoria() != null) {
+                    sql += "ID_PRODUCTO='" + bean.getIdCategoria() + "'";
+                }
+
+                if (bean.getNombre() != null) {
+                    sql += "PRD_NOMBRE='" + bean.getNombre() + "'";
+                }
+
+                if (bean.getPrecioVenta() > 0) {
+                    sql += "PRD_PRECIO_VENTA='" + bean.getPrecioVenta() + "'";
+                }
+
+                if (bean.getDescripcion() != null) {
+                    sql += "PRD_DESCRIPCION='" + bean.getDescripcion() + "', ";
+                }
+
+                if (bean.getImagenRuta() != null) {
+                    sql += "PRD_IMAGEN_RUTA='" + bean.getImagenRuta() + "'";
+                }
+
+                if (bean.getEstado() == true) {
+                    sql += "PRD_ESTADO='" + bean.getEstado() + "'";
+                }
+
+                if (bean.getIdCategoria() != null) {
+                    sql += "ID_CATEGORIA_PRD='" + bean.getIdCategoria() + "'";
+                }
+
+                sql += " WHERE PRD_NOMBRE=" + bean.getNombre() + ";";
+                System.out.println(sql);
+                resp = motor.execute(sql);
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            motor.disconnect();
+        }
+
+        if (resp > 0) {
+            System.out.println("Pelicula actualizada con éxito.");
+        } else {
+            System.out.println("No se pudo actualizar.");
+        }
+        return resp;
     }
+
 
     public ArrayList<Productos> findAllByCategory(Productos bean, boolean orderByIdProducto ) {
         ArrayList<Productos> productos = new ArrayList<>();

@@ -156,6 +156,7 @@ public class PedidosDao implements IDao<Pedidos, String> {
                 }
             }
 
+
             System.out.println("Executing query: " + sql);
             ResultSet rs = motor.executeQuery(sql);
 
