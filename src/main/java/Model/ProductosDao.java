@@ -90,62 +90,72 @@ public class ProductosDao implements IDao <Productos, Integer> {
     public int update(Productos bean) {
         int resp = 0;
         MotorOracle motor = new MotorOracle();
-        String sql;
+        PreparedStatement pstmt = null;
         try {
             motor.connect();
 
-            if (bean == null) {
-                System.out.println("Introduzca datos a modificar");
-            } else {
+            // Construir la consulta SQL dinámicamente
+            StringBuilder sql = new StringBuilder(SQL_UPDATE);
+            ArrayList<Object> params = new ArrayList<>();
 
-                sql = SQL_UPDATE;
-                if (bean.getIdCategoria() != null) {
-                    sql += "ID_PRODUCTO='" + bean.getIdCategoria() + "'";
-                }
-
-                if (bean.getNombre() != null) {
-                    sql += "PRD_NOMBRE='" + bean.getNombre() + "'";
-                }
-
-                if (bean.getPrecioVenta() > 0) {
-                    sql += "PRD_PRECIO_VENTA='" + bean.getPrecioVenta() + "'";
-                }
-
-                if (bean.getDescripcion() != null) {
-                    sql += "PRD_DESCRIPCION='" + bean.getDescripcion() + "', ";
-                }
-
-                if (bean.getImagenRuta() != null) {
-                    sql += "PRD_IMAGEN_RUTA='" + bean.getImagenRuta() + "'";
-                }
-
-                if (bean.getEstado() == true) {
-                    sql += "PRD_ESTADO='" + bean.getEstado() + "'";
-                }
-
-                if (bean.getIdCategoria() != null) {
-                    sql += "ID_CATEGORIA_PRD='" + bean.getIdCategoria() + "'";
-                }
-
-                sql += " WHERE ID_PRODCUTO=" + bean.getIdProducto() + ";";
-                System.out.println(sql);
-                resp = motor.execute(sql);
+            if (bean.getNombre() != null) {
+                sql.append("PRD_NOMBRE = ?, ");
+                params.add(bean.getNombre());
+            }
+            if (bean.getPrecioVenta() > 0) {
+                sql.append("PRD_PRECIO_VENTA = ?, ");
+                params.add(bean.getPrecioVenta());
+            }
+            if (bean.getDescripcion() != null) {
+                sql.append("PRD_DESCRIPCION = ?, ");
+                params.add(bean.getDescripcion());
+            }
+            if (bean.getImagenRuta() != null) {
+                sql.append("PRD_IMAGEN_RUTA = ?, ");
+                params.add(bean.getImagenRuta());
+            }
+            if (bean.getEstado() == true) {
+                sql.append("PRD_ESTADO = ?, ");
+                params.add(bean.getEstado() ? 1 : 0);
+            }
+            if (bean.getIdCategoria() != null) {
+                sql.append("ID_CATEGORIA_PRD = ?, ");
+                params.add(bean.getIdCategoria());
             }
 
-        } catch (Exception e) {
+            // Eliminar la última coma y agregar la cláusula WHERE
+            sql.setLength(sql.length() - 2);
+            sql.append(" WHERE ID_PRODUCTO = ?");
+            params.add(bean.getIdProducto());
 
+            pstmt = motor.prepareStatement(sql.toString());
+
+            // Establecer los parámetros en la consulta preparada
+            for (int i = 0; i < params.size(); i++) {
+                if (params.get(i) instanceof String) {
+                    pstmt.setString(i + 1, (String) params.get(i));
+                } else if (params.get(i) instanceof Double) {
+                    pstmt.setDouble(i + 1, (Double) params.get(i));
+                } else if (params.get(i) instanceof Integer) {
+                    pstmt.setInt(i + 1, (Integer) params.get(i));
+                }
+            }
+
+            resp = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el producto: " + e.getMessage());
+            e.printStackTrace();
         } finally {
-            motor.disconnect();
-        }
-
-        if (resp > 0) {
-            System.out.println("Pelicula actualizada con éxito.");
-        } else {
-            System.out.println("No se pudo actualizar.");
+            try {
+                if (pstmt != null) pstmt.close();
+                motor.disconnect();
+            } catch (SQLException se) {
+                System.out.println("Error al cerrar recursos: " + se.getMessage());
+                se.printStackTrace();
+            }
         }
         return resp;
     }
-
 
 
     public ArrayList<Productos> findAllByCategory(Productos bean, boolean orderByIdProducto ) {
