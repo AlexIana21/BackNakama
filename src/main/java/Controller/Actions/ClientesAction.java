@@ -3,6 +3,8 @@ package Controller.Actions;
 import Controller.Controller;
 import Model.Clientes;
 import Model.ClientesDao;
+import Model.Empleados;
+import Model.EmpleadosDao;
 import Model.Factory.DatabaseFactory;
 import com.google.gson.Gson;
 
@@ -15,7 +17,7 @@ public class ClientesAction implements IAction {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response, String action) {
         String strReturn = "";
-        switch (action.toUpperCase()) {
+        switch (action) {
             case "ADD":
                 strReturn = addClient(request, response);
                 break;
@@ -25,8 +27,8 @@ public class ClientesAction implements IAction {
             case "REGISTER":
                 strReturn = register(request, response);
                 break;
-            case "FIND":
-                strReturn = find(request);
+            case "FIND_ALL":
+                strReturn = findAll();
                 break;
         }
         return strReturn;
@@ -80,19 +82,9 @@ public class ClientesAction implements IAction {
         return Clientes.fromObjectToJSON(cliente);
     }
 
-    private String find(HttpServletRequest request) {
-        String nombre = request.getParameter("CL_NOMBRE");
-        String apellido = request.getParameter("CL_APELLIDO");
-        String email = request.getParameter("CL_EMAIL");
-
-        Clientes filter = new Clientes();
-        filter.setNombre(nombre);
-        filter.setApellido(apellido);
-        filter.setEmail(email);
-
-        ClientesDao clientesDao = new ClientesDao(DatabaseFactory.ORACLE);
-        ArrayList<Clientes> clientes = clientesDao.find(filter);
-
+    private String findAll() {
+        ClientesDao clientesDao = new ClientesDao();
+        ArrayList<Clientes> clientes = clientesDao.findAll(null);
         return Clientes.toArrayJSon(clientes);
     }
 }

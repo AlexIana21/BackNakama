@@ -10,36 +10,39 @@ import java.util.logging.Logger;
 public class ClientesDao implements IDao<Clientes, String> {
 
     private final String SQL_ADD = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD) VALUES (?, ?, ?, ?, ?)";
-    private final String SQL_GET_MAX_ID = "SELECT MAX(ID_CLIENTE) FROM CLIENTES";
-    private final String SQL_FIND = " SELECT * FROM CLIENTES WHERE 1=1 AND CL_NOMBRE LIKE ?";
-
+    private final String SQL_FIND_ALL = "SELECT * FROM CLIENTES WHERE 1=1 ";
     private MotorOracle _motorOracle;
 
     public ClientesDao(String db) {
         _motorOracle = DatabaseFactory.getDatabase(db);
     }
 
-   /* private String getNextIdCliente() {
-        String nextId = "00001"; // Valor inicial por defecto
-        _motorOracle.connect();
-        try {
-            ResultSet rs = _motorOracle.executeQuery(SQL_GET_MAX_ID);
-            if (rs.next()) {
-                String maxId = rs.getString(1);
-                if (maxId != null) {
-                    int maxIdInt = Integer.parseInt(maxId) + 1;
-                    nextId = String.format("%02d", maxIdInt); // Formatear con ceros a la izquierda
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener el próximo ID_CLIENTE: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            _motorOracle.disconnect();
-        }
-        return nextId;
+    // este es paar el find all
+    public ClientesDao() {
+
     }
-*/
+
+    /* private String getNextIdCliente() {
+         String nextId = "00001"; // Valor inicial por defecto
+         _motorOracle.connect();
+         try {
+             ResultSet rs = _motorOracle.executeQuery(SQL_GET_MAX_ID);
+             if (rs.next()) {
+                 String maxId = rs.getString(1);
+                 if (maxId != null) {
+                     int maxIdInt = Integer.parseInt(maxId) + 1;
+                     nextId = String.format("%02d", maxIdInt); // Formatear con ceros a la izquierda
+                 }
+             }
+         } catch (SQLException e) {
+             System.out.println("Error al obtener el próximo ID_CLIENTE: " + e.getMessage());
+             e.printStackTrace();
+         } finally {
+             _motorOracle.disconnect();
+         }
+         return nextId;
+     }
+ */
     @Override
     public int add(Clientes bean) {
         int filasModificadas = 0;
@@ -79,8 +82,47 @@ public class ClientesDao implements IDao<Clientes, String> {
     }
 
     @Override
-    public ArrayList<Clientes> findAll(Clientes bean) {
-        return null;
+    public ArrayList<Clientes> findAll(Clientes bean ) {
+        ArrayList<Clientes> clientes = new ArrayList<>();
+        MotorOracle motor = new MotorOracle();
+        try {
+            motor.connect();
+            String sql = SQL_FIND_ALL;
+            if (bean != null) {
+                if (((Clientes) bean).getIdCliente() != null) {
+                    sql += " AND ID_CLIENTE='" + ((Clientes) bean).getIdCliente() + "'";
+                }
+                if (((Clientes) bean).getNombre() != null) {
+                    sql += " AND CL_NOMBRE='" + ((Clientes) bean).getNombre() + "'";
+                }
+                if (((Clientes) bean).getApellido() != null) {
+                    sql += " AND CL_APELLIDO='" + ((Clientes) bean).getApellido() + "'";
+                }
+                if (((Clientes) bean).getPassword() != null) {
+                    sql += " AND CL_EMAIL='" + ((Clientes) bean).getPassword() + "'";
+                }
+                if (((Clientes) bean).getPassword() != null) {
+                    sql += " AND CL_PASSWORD='" + ((Clientes) bean).getApellido() + "'";
+                }
+            }
+
+            ResultSet rs = motor.executeQuery(sql);
+
+            while (rs.next()) {
+                Clientes cliente = new Clientes();
+                cliente.setIdCliente(rs.getString("ID_CLIENTE"));
+                cliente.setNombre(rs.getString("CL_NOMBRE"));
+                cliente.setApellido(rs.getString("CL_APELLIDO"));
+                cliente.setEmail(rs.getString("CL_EMAIL"));
+                cliente.setPassword(rs.getString("CL_PASSWORD"));
+                clientes.add(cliente);
+            }
+        } catch (Exception ex) {
+            clientes.clear();
+        } finally {
+            motor.disconnect();
+        }
+        return clientes;
     }
 
     public Clientes login(String email, String password) {
@@ -115,60 +157,5 @@ public class ClientesDao implements IDao<Clientes, String> {
     }
 
 
-    public ArrayList<Clientes> find(Clientes filter) {
-        ArrayList<Clientes> clientes = new ArrayList<>();
-        _motorOracle.connect();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            _motorOracle.connect();
-            StringBuilder sql = new StringBuilder(SQL_FIND);
 
-            if (filter.getNombre() != null && !filter.getNombre().isEmpty()) {
-                sql.append(" AND CL_NOMBRE LIKE ?");
-            }
-            if (filter.getApellido() != null && !filter.getApellido().isEmpty()) {
-                sql.append(" AND CL_APELLIDO LIKE ?");
-            }
-            if (filter.getEmail() != null && !filter.getEmail().isEmpty()) {
-                sql.append(" AND CL_EMAIL = ?");
-            }
-
-            pstmt = _motorOracle.prepareStatement(sql.toString());
-
-            int index = 1;
-
-            if (filter.getNombre() != null && !filter.getNombre().isEmpty()) {
-                pstmt.setString(index++, "%" + filter.getNombre() + "%");
-            }
-            if (filter.getApellido() != null && !filter.getApellido().isEmpty()) {
-                pstmt.setString(index++, "%" + filter.getApellido() + "%");
-            }
-            if (filter.getEmail() != null && !filter.getEmail().isEmpty()) {
-                pstmt.setString(index++, filter.getEmail());
-            }
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Clientes cliente = new Clientes();
-                cliente.setIdCliente(rs.getString("ID_CLIENTE"));
-                cliente.setNombre(rs.getString("CL_NOMBRE"));
-                cliente.setApellido(rs.getString("CL_APELLIDO"));
-                cliente.setEmail(rs.getString("CL_EMAIL"));
-                cliente.setPassword(rs.getString("CL_PASSWORD"));
-                clientes.add(cliente);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-        return clientes;
-    }
 }

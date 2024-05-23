@@ -93,7 +93,7 @@ public class Productos {
                 '}';
     }
 
-    public static String fromArrayToJson(ArrayList<Productos> producto){
+    public static String fromToJson(ArrayList<Productos> producto){
         String resp = "[";
         for (Productos productos : producto) {
             resp+= "{" +
