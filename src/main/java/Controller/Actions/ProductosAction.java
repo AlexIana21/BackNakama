@@ -24,7 +24,7 @@ public class ProductosAction implements IAction {
                 strReturn = delete(request);
                 break;
             case "ADD":
-            strReturn = add(request);
+            strReturn = addProduct(request, response);
             break;
             case "UPDATE":
                 strReturn = update(request);
@@ -33,6 +33,8 @@ public class ProductosAction implements IAction {
             default:
                 strReturn = "ERROR. Invalid Action";
         }
+        //lol
+
         return strReturn;
     }
 
