@@ -11,7 +11,7 @@ public class ClientesDao implements IDao<Clientes, String> {
 
     private final String SQL_ADD = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD) VALUES (?, ?, ?, ?, ?)";
     private final String SQL_GET_MAX_ID = "SELECT MAX(ID_CLIENTE) FROM CLIENTES";
-    private final String SQL_FIND = "SELECT * FROM CLIENTES WHERE 1=1 ORDER BY ID_CLIENTE";
+    private final String SQL_FIND = " SELECT * FROM CLIENTES WHERE 1=1 AND CL_NOMBRE LIKE ?";
 
     private MotorOracle _motorOracle;
 

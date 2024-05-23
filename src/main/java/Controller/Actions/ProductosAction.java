@@ -24,7 +24,7 @@ public class ProductosAction implements IAction {
                 strReturn = delete(request);
                 break;
             case "ADD":
-            strReturn = addProduct(request, response);
+            strReturn = add(request);
             break;
             case "UPDATE":
                 strReturn = update(request);
