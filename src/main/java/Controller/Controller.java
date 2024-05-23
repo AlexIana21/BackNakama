@@ -122,7 +122,6 @@ public class Controller extends HttpServlet {
     }
 
     public static String getBody(HttpServletRequest request) {
-
         String body = null;
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
@@ -132,7 +131,7 @@ public class Controller extends HttpServlet {
             if (inputStream != null) {
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 char[] charBuffer = new char[256];
-                int bytesRead = -1;
+                int bytesRead;
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
@@ -140,13 +139,13 @@ public class Controller extends HttpServlet {
                 stringBuilder.append("");
             }
         } catch (IOException ex) {
-            // throw ex; return "";
+            ex.printStackTrace();
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException ex) {
-
+                    ex.printStackTrace();
                 }
             }
         }
@@ -156,9 +155,6 @@ public class Controller extends HttpServlet {
     }
 }
 
-// ENDPOINTS DE EJEMPLOS PARA QUE VEÁIS LA ESTRUCTURA
-        //http://localhost:8080/untitled/Controller?ACTION=PELICULA.FIND_ALL
-        // http://localhost:8080/API_JAVA_MYSQL/Controller?ACTION=PELICULA.FILTER&FILTRO=DRAMA
-//
+
 
 

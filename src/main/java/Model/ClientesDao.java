@@ -19,7 +19,7 @@ public class ClientesDao implements IDao<Clientes, String> {
         _motorOracle = DatabaseFactory.getDatabase(db);
     }
 
-    private String getNextIdCliente() {
+   /* private String getNextIdCliente() {
         String nextId = "00001"; // Valor inicial por defecto
         _motorOracle.connect();
         try {
@@ -39,17 +39,13 @@ public class ClientesDao implements IDao<Clientes, String> {
         }
         return nextId;
     }
-
+*/
     @Override
     public int add(Clientes bean) {
         int filasModificadas = 0;
         _motorOracle.connect();
         PreparedStatement pstmt = null;
         try {
-            // Generar nuevo ID_CLIENTE si es necesario
-            if (bean.getIdCliente() == null || bean.getIdCliente().isEmpty()) {
-                bean.setIdCliente(getNextIdCliente());
-            }
             pstmt = _motorOracle.prepareStatement(SQL_ADD);
             pstmt.setString(1, bean.getIdCliente());
             pstmt.setString(2, bean.getNombre());
