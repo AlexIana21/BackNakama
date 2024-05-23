@@ -96,31 +96,6 @@ public class Controller extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private void processPostRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        response.setContentType("text/plain;charset=UTF-8");
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setContentType("text/plain;charset=UTF-8");
-
-        String strAction = request.getParameter("ACTION");
-        String[] arrayAction = new String[2];
-        if (!strAction.isEmpty()) {
-            arrayAction = strAction.split("\\.");
-
-            switch (arrayAction[0].toUpperCase()) {
-                case "PRODUCTOS": {
-                    response.getWriter().print(new ProductosAction().execute(request, response, arrayAction[1]));
-                    break;
-                }
-
-            }
-        }
-    }
-
     public static String getBody(HttpServletRequest request) {
         String body = null;
         StringBuilder stringBuilder = new StringBuilder();

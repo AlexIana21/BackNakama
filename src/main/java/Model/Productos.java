@@ -111,6 +111,16 @@ public class Productos {
         return resp;
     }
 
+    public static String fromObjectToJSON(Productos productos) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(productos);
+
+        return resp;
+    }
+
     public static String toArrayJSon(ArrayList<Productos> producto) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

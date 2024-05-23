@@ -2,7 +2,11 @@ package Controller.Actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Model.Factory.DatabaseFactory;
+import Controller.Controller;
 import Model.*;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class ProductosAction implements IAction {
@@ -20,8 +24,8 @@ public class ProductosAction implements IAction {
                 strReturn = delete(request);
                 break;
             case "ADD":
-                strReturn = add(request);
-                break;
+            strReturn = addProduct(request, response);
+            break;
             case "UPDATE":
                 strReturn = update(request);
                 break;
@@ -33,7 +37,7 @@ public class ProductosAction implements IAction {
     }
 
     private String findAll() {
-        ProductosDao productosDao = new ProductosDao();
+        ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
         ArrayList<Productos> productos = productosDao.findAll(null);
         return Productos.toArrayJSon(productos);
     }
@@ -42,7 +46,7 @@ public class ProductosAction implements IAction {
     private String delete(HttpServletRequest request) {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
-            ProductosDao productosDao = new ProductosDao();
+            ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
             int result = productosDao.delete(idParam);
             if (result > 0) {
                 return "Producto eliminado con éxito";
@@ -57,7 +61,7 @@ public class ProductosAction implements IAction {
 
 
     private String add(HttpServletRequest request) {
-        ProductosDao productosDao = new ProductosDao();
+        ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
         Productos producto = new Productos();
 
         try {
@@ -82,8 +86,21 @@ public class ProductosAction implements IAction {
         }
     }
 
+    private String addProduct(HttpServletRequest request, HttpServletResponse response) {
+        Productos producto = new Gson().fromJson(Controller.getBody(request), Productos.class);
+        System.out.println(new Gson().toJson(producto));
+        ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
+        int result = productosDao.add(producto);
+
+        if (result > 0) {
+            return Productos.fromObjectToJSON(producto);
+        } else {
+            return "{\"message\":\"Error al registrar el producto\"}";
+        }
+    }
+
     private String update(HttpServletRequest request) {
-        ProductosDao productosDao = new ProductosDao();
+        ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
         Productos producto = new Productos();
 
         try {

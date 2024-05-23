@@ -1,4 +1,6 @@
 package Model;
+import Model.Factory.DatabaseFactory;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +20,12 @@ public class ProductosDao implements IDao <Productos, Integer> {
                     "FROM PRODUCTOS";
 
     private final String SQL_ADD = "INSERT INTO PRODUCTOS (ID_PRODUCTO, PRD_NOMBRE, PRD_PRECIO_VENTA, PRD_DESCRIPCION, PRD_IMAGEN_RUTA, PRD_ESTADO, ID_CATEGORIA_PRD) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    private MotorOracle _motorOracle;
+
+    public ProductosDao(String db) {
+        _motorOracle = DatabaseFactory.getDatabase(db);
+    }
 
     @Override
     public int add(Productos bean) {
