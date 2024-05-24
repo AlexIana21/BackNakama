@@ -78,7 +78,6 @@ public class Clientes {
         return resp;
     }
 
-
     public static String toArrayJSon(ArrayList<Clientes> cliente) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

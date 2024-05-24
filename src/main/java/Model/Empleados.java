@@ -170,7 +170,6 @@ public class Empleados {
         return resp;
     }
 
-
     public static String toArrayJson(ArrayList<Empleados> empleados) {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

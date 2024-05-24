@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmpleadosDao implements IDao <Empleados, String>{
-    private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ";
+    private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ORDER BY TO_NUMBER(ID_EMPLEADO)";
+
     private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, ID_PUESTO_EMP, ID_USUARIO_EMP  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
     private final String SQL_UPDATE = "UPDATE EMPLEADOS SET ";
