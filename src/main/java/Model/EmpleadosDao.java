@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EmpleadosDao implements IDao <Empleados, String>{
     private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ";
-    private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_FECHA_CONTRATO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, ID_PUESTO_EMP, ID_USUARIO_EMP  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, ID_PUESTO_EMP, ID_USUARIO_EMP  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )";
 
     private final String SQL_UPDATE = "UPDATE EMPLEADOS SET ";
 
@@ -40,18 +40,16 @@ public class EmpleadosDao implements IDao <Empleados, String>{
             pstmt.setString(4, bean.getEmail());
             System.out.println("EMP_TELEFONO: " + bean.getTelefono());
             pstmt.setString(5, bean.getTelefono());
-            System.out.println("EMP_FECHA_CONTRATO: " + bean.getEstado());
-            pstmt.setBoolean(6, bean.getEstado());
             System.out.println("EMP_ROL_COMITE: " + bean.getRolComite());
-            pstmt.setString(7, bean.getRolComite());
+            pstmt.setString(6, bean.getRolComite());
             System.out.println("EMP_SALARY: " + bean.getSalario());
-            pstmt.setDouble(8, bean.getSalario());
+            pstmt.setDouble(7, bean.getSalario());
             System.out.println("EMP_ESTADO: " + bean.getEstado());
-            pstmt.setBoolean(9, bean.getEstado());
+            pstmt.setBoolean(8, bean.getEstado());
             System.out.println("ID_PUESTO_EMP: " + bean.getIdPuesto());
-            pstmt.setString(10, bean.getIdPuesto());
+            pstmt.setString(9, bean.getIdPuesto());
             System.out.println("ID_USUARIO_EMP: " + bean.getIdUsuario());
-            pstmt.setString(11, bean.getIdUsuario());
+            pstmt.setString(10, bean.getIdUsuario());
 
 
             resp = pstmt.executeUpdate();
@@ -123,10 +121,6 @@ public class EmpleadosDao implements IDao <Empleados, String>{
             if (bean.getTelefono() != null) {
                 sql.append("EMP_TELEFONO = ?, ");
                 params.add(bean.getTelefono());
-            }
-            if (bean.getFechaContrato() != null) {
-                sql.append("EMP_FECHA_CONTRATO = ?, ");
-                params.add(bean.getFechaContrato());
             }
             if (bean.getRolComite() != null) {
                 sql.append("EMP_ROL_COMITE = ?, ");
@@ -208,9 +202,6 @@ public class EmpleadosDao implements IDao <Empleados, String>{
                 if (((Empleados)bean).getTelefono() != null) {
                     sql += " AND EMP_TELEFONO='" + ((Empleados)bean).getTelefono() + "'";
                 }
-                if (((Empleados)bean).getFechaContrato() != null) {
-                    sql += " AND EMP_FECHA_CONTRATO='" + new java.sql.Date(((Empleados)bean).getFechaContrato().getTime()) + "'";
-                }
                 if (((Empleados)bean).getRolComite() != null) {
                     sql += " AND EMP_ROL_COMITE='" + ((Empleados)bean).getRolComite() + "'";
                 }
@@ -236,7 +227,6 @@ public class EmpleadosDao implements IDao <Empleados, String>{
                 empleado.setApellido(rs.getString("EMP_APELLIDO"));
                 empleado.setEmail(rs.getString("EMP_EMAIL"));
                 empleado.setTelefono(rs.getString("EMP_TELEFONO"));
-                empleado.setFechaContrato(rs.getDate("EMP_FECHA_CONTRATO"));
                 empleado.setRolComite(rs.getString("EMP_ROL_COMITE"));
                 empleado.setSalario(rs.getDouble("EMP_SALARY"));
                 empleado.setEstado(rs.getBoolean("EMP_ESTADO") == true);

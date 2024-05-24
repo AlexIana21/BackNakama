@@ -10,7 +10,6 @@ public class Empleados {
     private String _apellido;
     private String _email;
     private String _telefono;
-    private Date _fechaContrato;
     private String _rolComite;
     private double _salario;
     private boolean _estado;
@@ -18,13 +17,12 @@ public class Empleados {
     private String _idUsuario;
 
     //Constructor
-    public Empleados(String idEmpleado, String nombre, String apellido, String email, String telefono, Date fechaContrato, String rolComite, double salario, boolean estado, String idPuesto, String idUsuario) {
+    public Empleados(String idEmpleado, String nombre, String apellido, String email, String telefono, String rolComite, double salario, boolean estado, String idPuesto, String idUsuario) {
         _idEmpleado = idEmpleado;
         _nombre = nombre;
         _apellido = apellido;
         _email = email;
         _telefono = telefono;
-        _fechaContrato = fechaContrato;
         _rolComite = rolComite;
         _salario = salario;
         _estado = estado;
@@ -77,13 +75,6 @@ public class Empleados {
         _telefono = telefono;
     }
 
-    public Date getFechaContrato() {
-        return _fechaContrato;
-    }
-
-    public void setFechaContrato(Date fechaContrato) {
-        _fechaContrato = fechaContrato;
-    }
 
     public String getRolComite() {
         return _rolComite;
@@ -136,7 +127,6 @@ public class Empleados {
                 ", apellido='" + _apellido + '\'' +
                 ", email='" + _email + '\'' +
                 ", telefono='" + _telefono + '\'' +
-                ", fechaContrato=" + _fechaContrato +
                 ", rolComite='" + _rolComite + '\'' +
                 ", salario=" + _salario +
                 ", estado=" + _estado +
@@ -154,7 +144,6 @@ public class Empleados {
                     "'apellido':'" + empleado.getApellido() + "', " +
                     "'email':'" + empleado.getEmail() + "', " +
                     "'telefono':'" + empleado.getTelefono() + "', " +
-                    "'fechaContrato':'" + empleado.getFechaContrato() + "', " +
                     "'rolComite':'" + empleado.getRolComite() + "', " +
                     "'salario':" + empleado.getSalario() + ", " +
                     "'estado':" + empleado.getEstado() + ", " +
