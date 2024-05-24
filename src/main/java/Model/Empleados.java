@@ -176,4 +176,14 @@ public class Empleados {
         return gson.toJson(empleados);
     }
 
+    public static String fromObjectToJSON(Empleados empleados) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        String resp = gson.toJson(empleados);
+
+        return resp;
+    }
+
 }

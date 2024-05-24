@@ -27,7 +27,7 @@ public class ProductosAction implements IAction {
             strReturn = addProduct(request, response);
             break;
             case "UPDATE":
-                strReturn = update(request);
+                strReturn = updateProduct(request, response);
                 break;
 
             default:
@@ -101,16 +101,31 @@ public class ProductosAction implements IAction {
         }
     }
 
-    private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+    private String updateProduct(HttpServletRequest request, HttpServletResponse response) {
         Productos producto = new Gson().fromJson(Controller.getBody(request), Productos.class);
         System.out.println(new Gson().toJson(producto));
         ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
-        int result = productosDao.delete(String.valueOf(producto));
+        int result = productosDao.update(producto);
 
         if (result > 0) {
             return Productos.fromObjectToJSON(producto);
         } else {
-            return "{\"message\":\"Error al borrar el producto\"}";
+            return "{\"message\":\"Error al actualizar el producto\"}";
+        }
+    }
+
+    private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        String idParam = request.getParameter("ID_PRODUCTO");
+        if (idParam != null) {
+            ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
+            int result = productosDao.delete(idParam);
+            if (result > 0) {
+                return "{\"message\":\"Producto eliminado con éxito\"}";
+            } else {
+                return "{\"message\":\"ERROR. No se pudo eliminar el producto\"}";
+            }
+        } else {
+            return "{\"message\":\"ERROR. Missing ID parameter\"}";
         }
     }
 

@@ -68,7 +68,6 @@ public class ProductosDao implements IDao <Productos, Integer> {
         return resp;
     }
 
-
     @Override
     public int delete(String id) {
         int resp = 0;
