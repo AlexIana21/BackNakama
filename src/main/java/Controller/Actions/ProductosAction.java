@@ -21,7 +21,7 @@ public class ProductosAction implements IAction {
                 strReturn = findAll();
                 break;
             case "DELETE":
-                strReturn = delete(request);
+                strReturn = deleteProduct(request,response);
                 break;
             case "ADD":
             strReturn = addProduct(request, response);
@@ -98,6 +98,19 @@ public class ProductosAction implements IAction {
             return Productos.fromObjectToJSON(producto);
         } else {
             return "{\"message\":\"Error al registrar el producto\"}";
+        }
+    }
+
+    private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
+        Productos producto = new Gson().fromJson(Controller.getBody(request), Productos.class);
+        System.out.println(new Gson().toJson(producto));
+        ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
+        int result = productosDao.delete(String.valueOf(producto));
+
+        if (result > 0) {
+            return Productos.fromObjectToJSON(producto);
+        } else {
+            return "{\"message\":\"Error al borrar el producto\"}";
         }
     }
 
