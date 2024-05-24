@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EmpleadosDao implements IDao <Empleados, String>{
     private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ";
-    private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_FECHA_CONTRATO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, EMP_ID_PUESTO, EMP_ID_USUARIO  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_FECHA_CONTRATO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, ID_PUESTO_EMP, ID_USUARIO_EMP  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private final String SQL_UPDATE = "UPDATE EMPLEADOS SET ";
 
@@ -48,9 +48,9 @@ public class EmpleadosDao implements IDao <Empleados, String>{
             pstmt.setDouble(8, bean.getSalario());
             System.out.println("EMP_ESTADO: " + bean.getEstado());
             pstmt.setBoolean(9, bean.getEstado());
-            System.out.println("EMP_ID_PUESTO: " + bean.getIdPuesto());
+            System.out.println("ID_PUESTO_EMP: " + bean.getIdPuesto());
             pstmt.setString(10, bean.getIdPuesto());
-            System.out.println("EMP_ID_USUARIO: " + bean.getIdUsuario());
+            System.out.println("ID_USUARIO_EMP: " + bean.getIdUsuario());
             pstmt.setString(11, bean.getIdUsuario());
 
 
@@ -141,11 +141,11 @@ public class EmpleadosDao implements IDao <Empleados, String>{
                 params.add(bean.getEstado() ? 1 : 0);
             }
             if (bean.getIdPuesto() != null) {
-                sql.append("EMP_ID_PUESTO = ?, ");
+                sql.append("ID_PUESTO_EMP = ?, ");
                 params.add(bean.getIdPuesto());
             }
             if (bean.getIdUsuario() != null) {
-                sql.append("EMP_ID_USUARIO = ?, ");
+                sql.append("ID_USUARIO_EMP = ?, ");
                 params.add(bean.getIdUsuario());
             }
 
@@ -221,10 +221,10 @@ public class EmpleadosDao implements IDao <Empleados, String>{
                     sql += " AND EMP_ESTADO='" + (((Empleados)bean).getEstado() ? 1 : 0) + "'";
                 }
                 if (((Empleados)bean).getIdPuesto() != null) {
-                    sql += " AND EMP_ID_PUESTO='" + ((Empleados)bean).getIdPuesto() + "'";
+                    sql += " AND ID_PUESTO_EMP='" + ((Empleados)bean).getIdPuesto() + "'";
                 }
                 if (((Empleados)bean).getIdUsuario() != null) {
-                    sql += " AND EMP_ID_USUARIO='" + ((Empleados)bean).getIdUsuario() + "'";
+                    sql += " AND ID_USUARIO_EMP='" + ((Empleados)bean).getIdUsuario() + "'";
                 }
             }
             ResultSet rs = motor.executeQuery(sql);
@@ -241,7 +241,7 @@ public class EmpleadosDao implements IDao <Empleados, String>{
                 empleado.setSalario(rs.getDouble("EMP_SALARY"));
                 empleado.setEstado(rs.getBoolean("EMP_ESTADO") == true);
                 Puesto puesto = new Puesto();
-                puesto.setIdPuesto(rs.getString("ID_PUESTO_emp"));
+                puesto.setIdPuesto(rs.getString("ID_PUESTO_EMP"));
                 empleado.setIdPuesto(puesto.getIdPuesto());
                 LoginPrivado loginPrivado = new LoginPrivado();
                 loginPrivado.setIdUsuario(rs.getString("ID_USUARIO_EMP"));
