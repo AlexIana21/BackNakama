@@ -78,4 +78,11 @@ public class Clientes {
         return resp;
     }
 
+
+    public static String toArrayJSon(ArrayList<Clientes> cliente) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        return gson.toJson(cliente);
+    }
 }

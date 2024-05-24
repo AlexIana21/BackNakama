@@ -122,5 +122,12 @@ public class Productos {
     }
 
 
+    public static String toArrayJSon(ArrayList<Productos> producto) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        return gson.toJson(producto);
+    }
+
 
 }
