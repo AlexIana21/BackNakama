@@ -14,6 +14,8 @@ public class ClientesDao implements IDao<Clientes, String> {
 
     private final String SQL_ADD = "INSERT INTO CLIENTES (ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD) VALUES (?, ?, ?, ?, ?)";
     private final String SQL_FIND_ALL = "SELECT * FROM CLIENTES WHERE 1=1 ";
+
+    private final String SQL_LOGIN = "SELECT ID_CLIENTE, CL_NOMBRE, CL_APELLIDO, CL_EMAIL, CL_PASSWORD FROM CLIENTES WHERE CL_EMAIL = ? AND CL_PASSWORD = ?";
     private MotorOracle _motorOracle;
 
     public ClientesDao(String db) {
@@ -129,21 +131,22 @@ public class ClientesDao implements IDao<Clientes, String> {
     }
 
     public Clientes login(String email, String password) {
-        String sql = "SELECT CL_EMAIL, CL_PASSWORD FROM CLIENTES WHERE CL_EMAIL = ? AND CL_PASSWORD = ?";
         _motorOracle.connect();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Clientes cliente = new Clientes();
+        Clientes cliente = null;
         try {
-            pstmt = _motorOracle.prepareStatement(sql);
+            pstmt = _motorOracle.prepareStatement(SQL_LOGIN);
             pstmt.setString(1, email);
             pstmt.setString(2, password);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                cliente.setEmail(rs.getString(1));
-                cliente.setPassword(rs.getString(2));
-            } else {
-                return null;
+                cliente = new Clientes();
+                cliente.setIdCliente(rs.getString("ID_CLIENTE"));
+                cliente.setNombre(rs.getString("CL_NOMBRE"));
+                cliente.setApellido(rs.getString("CL_APELLIDO"));
+                cliente.setEmail(rs.getString("CL_EMAIL"));
+                cliente.setPassword(rs.getString("CL_PASSWORD"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ClientesDao.class.getName()).log(Level.SEVERE, null, ex);
