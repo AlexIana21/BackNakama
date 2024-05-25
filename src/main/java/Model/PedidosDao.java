@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class PedidosDao implements IDao<Pedidos, String> {
     private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
+    private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
 
     private MotorOracle _motorOracle;
 

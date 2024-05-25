@@ -2,6 +2,9 @@ package Model;
 
 
 import Model.Factory.DatabaseFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -156,6 +159,32 @@ public class ClientesDao implements IDao<Clientes, String> {
         return cliente;
     }
 
+    public int register(Clientes bean) {
+        int filasModificadas = 0;
+        _motorOracle.connect();
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = _motorOracle.prepareStatement(SQL_ADD);
+            pstmt.setString(1, bean.getIdCliente());
+            pstmt.setString(2, bean.getNombre());
+            pstmt.setString(3, bean.getApellido());
+            pstmt.setString(4, bean.getEmail());
+            pstmt.setString(5, bean.getPassword());
+            filasModificadas = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error registering client: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                _motorOracle.disconnect();
+            } catch (SQLException se) {
+                System.out.println("Error closing resources: " + se.getMessage());
+                se.printStackTrace();
+            }
+        }
+        return filasModificadas;
+    }
 
 
 

@@ -25,7 +25,7 @@ public class ClientesAction implements IAction {
                 strReturn = login(request, response);
                 break;
             case "REGISTER":
-                strReturn = register(request, response);
+                strReturn = registerClient(request, response);
                 break;
             case "FIND_ALL":
                 strReturn = findAll();
@@ -47,23 +47,11 @@ public class ClientesAction implements IAction {
         }
     }
 
-    private String register(HttpServletRequest request, HttpServletResponse response) {
-        String idCliente = request.getParameter("ID_CLIENTE");
-        String nombre = request.getParameter("CL_NOMBRE");
-        String apellido = request.getParameter("CL_APELLIDO");
-        String email = request.getParameter("CL_EMAIL");
-        String password = request.getParameter("CL_PASSWORD");
-
-        Clientes cliente = new Clientes();
-        cliente.setIdCliente(idCliente);
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setEmail(email);
-        cliente.setPassword(password);
-
-        ClientesDao clientesDao = new ClientesDao(DatabaseFactory.ORACLE);
-
-        int result = clientesDao.add(cliente);
+    private String registerClient(HttpServletRequest request, HttpServletResponse response) {
+        Clientes cliente = new Gson().fromJson(Controller.getBody(request), Clientes.class);
+        System.out.println(new Gson().toJson(cliente));
+        ClientesDao clienteDao = new ClientesDao(DatabaseFactory.ORACLE);
+        int result = clienteDao.register(cliente);
 
         if (result > 0) {
             return Clientes.fromObjectToJSON(cliente);
@@ -71,6 +59,8 @@ public class ClientesAction implements IAction {
             return "{\"message\":\"Error al registrar el cliente\"}";
         }
     }
+
+
 
     private String login(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("EMAIL");
