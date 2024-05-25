@@ -2,7 +2,12 @@ package Controller.Actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import Controller.Controller;
 import Model.*;
+import Model.Factory.DatabaseFactory;
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -11,7 +16,7 @@ public class PedidosAction implements IAction {
         String strReturn = "";
         switch (action) {
             case "ADD":
-                strReturn = add(request);
+                strReturn = addPedido(request,response);
                 break;
             case "FIND_ALL":
                 strReturn = findAll();
@@ -23,7 +28,7 @@ public class PedidosAction implements IAction {
     }
 
     private String add(HttpServletRequest request) {
-        PedidosDao pedidosDao = new PedidosDao();
+        PedidosDao pedidosDao = new PedidosDao(DatabaseFactory.ORACLE);
         Pedidos pedido = new Pedidos();
 
         try {
@@ -32,7 +37,7 @@ public class PedidosAction implements IAction {
 
             // Convertir la hora y fecha de String a Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             pedido.setFecha(dateFormat.parse(request.getParameter("PED_FECHA")));
 
             pedido.setTlf(request.getParameter("PED_TELEFONO"));
@@ -55,8 +60,21 @@ public class PedidosAction implements IAction {
         }
     }
 
+    private String addPedido(HttpServletRequest request, HttpServletResponse response) {
+        Pedidos pedidos = new Gson().fromJson(Controller.getBody(request), Pedidos.class);
+        System.out.println(new Gson().toJson(pedidos));
+        PedidosDao pedidosDao = new PedidosDao(DatabaseFactory.ORACLE);
+        int result = pedidosDao.add(pedidos);
+
+        if (result > 0) {
+            return Pedidos.fromObjectToJSON(pedidos);
+        } else {
+            return "{\"message\":\"Error al registrar el producto\"}";
+        }
+    }
+
     private String findAll() {
-        PedidosDao pedidosDao = new PedidosDao();
+        PedidosDao pedidosDao = new PedidosDao(DatabaseFactory.ORACLE);
         ArrayList<Pedidos> pedidos = pedidosDao.findAll(null);
         return Pedidos.toArrayJSon(pedidos);
     }

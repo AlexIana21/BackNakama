@@ -69,6 +69,13 @@ public class Pedidos {
         return gson.toJson(pedido);
     }
 
+    public static String fromObjectToJSON(Pedidos pedidos) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        Gson gson = builder.create();
+        String resp = gson.toJson(pedidos);
+        return resp;
+    }
     /*public void aplicarDescuento(Descuento descuento) {
         if (descuento != null && _fecha != null && _fecha.after(descuento.getFechaInicio()) && _fecha.before(descuento.getFechaFinal())) {
             _precio = _precio - (_precio * (descuento.getCantidad() / 100.0));

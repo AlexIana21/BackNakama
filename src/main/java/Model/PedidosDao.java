@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Factory.DatabaseFactory;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,13 @@ public class PedidosDao implements IDao<Pedidos, String> {
     private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
+
+    private MotorOracle _motorOracle;
+
+    public PedidosDao(String db) {
+        _motorOracle = DatabaseFactory.getDatabase(db);
+    }
+
 
     @Override
     public int add(Pedidos bean) {
