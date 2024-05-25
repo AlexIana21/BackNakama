@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class Pedidos {
     private String _idPedido;
-    private Date _hora;
     private Date _fecha;
     private String _tlf;
     private String _direccion;
@@ -22,8 +21,6 @@ public class Pedidos {
 
     public String getIdPedido() { return _idPedido; }
     public void setIdPedido(String idPedido) { _idPedido = idPedido; }
-    public Date getHora() { return _hora; }
-    public void setHora(Date hora) { _hora = hora; }
     public Date getFecha() { return _fecha; }
     public void setFecha(Date fecha) { _fecha = fecha; }
     public String getTlf() { return _tlf; }
@@ -39,9 +36,8 @@ public class Pedidos {
     public String getIdEmpleado() { return _idEmpleado; }
     public void setIdEmpleado(String idEmpleado) { _idEmpleado = idEmpleado; }
 
-    public Pedidos(String idPedido, Date hora, Date fecha, String telefono, String direccion, Boolean estado, Double precio, String idCliente, String idEmpleado) {
+    public Pedidos(String idPedido,  Date fecha, String telefono, String direccion, Boolean estado, Double precio, String idCliente, String idEmpleado) {
         _idPedido = idPedido;
-        _hora = hora;
         _fecha = fecha;
         _tlf = telefono;
         _direccion = direccion;
@@ -56,7 +52,6 @@ public class Pedidos {
     public String toString() {
         return "Pedidos{" +
                 "idPedido='" + _idPedido + '\'' +
-                ", hora='" + _hora + '\'' +
                 ", fecha='" + _fecha + '\'' +
                 ", telefono='" + _tlf + '\'' +
                 ", direccion='" + _direccion + '\'' +

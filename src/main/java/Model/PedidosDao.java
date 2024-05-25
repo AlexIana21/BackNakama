@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class PedidosDao implements IDao<Pedidos, String> {
-    private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_HORA, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String SQL_ADD = "INSERT INTO PEDIDOS (ID_PEDIDO, PED_FECHA, PED_TELEFONO, PED_DIRECCION, PED_ESTADO, PED_PRECIO, ID_CLIENTE_PED, ID_EMPLEADO_PED) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         private final String SQL_FIND_ALL = "SELECT * FROM PEDIDOS ORDER BY ID_PEDIDO";
 
@@ -20,20 +20,17 @@ public class PedidosDao implements IDao<Pedidos, String> {
 
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             Date sqlFecha = new Date(bean.getFecha().getTime());
-            Timestamp sqlHora = new Timestamp(bean.getHora().getTime());
 
             pstmt.setString(1, bean.getIdPedido());
-            pstmt.setTimestamp(2, sqlHora);
-            pstmt.setDate(3, sqlFecha);
-            pstmt.setString(4, bean.getTlf());
-            pstmt.setString(5, bean.getDireccion());
-            pstmt.setBoolean(6, bean.getEstado());
-            pstmt.setDouble(7, bean.getPrecio());
-            pstmt.setString(8, bean.getIdCliente());
-            pstmt.setString(9, bean.getIdEmpleado());
+            pstmt.setDate(2, sqlFecha);
+            pstmt.setString(3, bean.getTlf());
+            pstmt.setString(4, bean.getDireccion());
+            pstmt.setBoolean(5, bean.getEstado());
+            pstmt.setDouble(6, bean.getPrecio());
+            pstmt.setString(7, bean.getIdCliente());
+            pstmt.setString(8, bean.getIdEmpleado());
 
             resp = pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -130,9 +127,6 @@ public class PedidosDao implements IDao<Pedidos, String> {
                 if (bean.getIdPedido() != null) {
                     sql += " AND ID_PEDIDO='" + bean.getIdPedido() + "'";
                 }
-                if (bean.getHora() != null) {
-                    sql += " AND PED_HORA='" + new Timestamp(bean.getHora().getTime()) + "'";
-                }
                 if (bean.getFecha() != null) {
                     sql += " AND PED_FECHA='" + new Date(bean.getFecha().getTime()) + "'";
                 }
@@ -163,7 +157,6 @@ public class PedidosDao implements IDao<Pedidos, String> {
             while (rs.next()) {
                 Pedidos pedido = new Pedidos();
                 pedido.setIdPedido(rs.getString("ID_PEDIDO"));
-                pedido.setHora(rs.getTimestamp("PED_HORA"));
                 pedido.setFecha(rs.getDate("PED_FECHA"));
                 pedido.setTlf(rs.getString("PED_TELEFONO"));
                 pedido.setDireccion(rs.getString("PED_DIRECCION"));

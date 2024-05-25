@@ -32,9 +32,7 @@ public class PedidosAction implements IAction {
 
             // Convertir la hora y fecha de String a Date
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            pedido.setHora(timestampFormat.parse(request.getParameter("PED_HORA")));
+            
             pedido.setFecha(dateFormat.parse(request.getParameter("PED_FECHA")));
 
             pedido.setTlf(request.getParameter("PED_TELEFONO"));
