@@ -21,6 +21,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
 
     private final String SQL_ADD = "INSERT INTO PRODUCTOS (ID_PRODUCTO, PRD_NOMBRE, PRD_PRECIO_VENTA, PRD_DESCRIPCION, PRD_IMAGEN_RUTA, PRD_ESTADO, ID_CATEGORIA_PRD) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+    private final String SQL_FIND_BY_ID = "SELECT * FROM PRODUCTOS WHERE ID_PRODUCTO = ?";
     private MotorOracle _motorOracle;
 
     public ProductosDao(String db) {
@@ -131,7 +132,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
                 params.add(bean.getIdCategoria());
             }
 
-            // Eliminar la última coma y agregar la cláusula WHERE
+            //Eliminar la última coma y agregar la cláusula WHERE
             sql.setLength(sql.length() - 2);
             sql.append(" WHERE ID_PRODUCTO = ?");
             params.add(bean.getIdProducto());
@@ -163,6 +164,36 @@ public class ProductosDao implements IDao <Productos, Integer> {
             }
         }
         return resp;
+    }
+
+    public Productos findById(String id) {
+        MotorOracle motor = new MotorOracle();
+        Productos producto = null;
+        try {
+            motor.connect();
+            String sql = SQL_FIND_BY_ID;
+            PreparedStatement pstmt = motor.prepareStatement(sql);
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                producto = new Productos();
+                producto.setIdProducto(rs.getString("ID_PRODUCTO"));
+                producto.setNombre(rs.getString("PRD_NOMBRE"));
+                producto.setPrecioVenta(rs.getDouble("PRD_PRECIO_VENTA"));
+                producto.setDescripcion(rs.getString("PRD_DESCRIPCION"));
+                producto.setImagenRuta(rs.getString("PRD_IMAGEN_RUTA"));
+                producto.setEstado(rs.getInt("PRD_ESTADO") == 1);
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getString("ID_CATEGORIA_PRD"));
+                producto.setIdCategoria(categoria.getIdCategoria());
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar producto por ID: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            motor.disconnect();
+        }
+        return producto;
     }
 
 
