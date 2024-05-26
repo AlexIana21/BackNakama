@@ -32,7 +32,6 @@ public class ProductosAction implements IAction {
             case "FIND_BY_ID":
                 strReturn = findProductById(request, response);
                 break;
-
             default:
                 strReturn = "ERROR. Invalid Action";
         }
@@ -135,7 +134,7 @@ public class ProductosAction implements IAction {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
             ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
-            Productos producto = productosDao.findById(idParam);
+            Productos producto = productosDao.findByIdProductos(idParam);
             if (producto != null) {
                 return Productos.fromObjectToJSON(producto); // Return product details as JSON
             } else {

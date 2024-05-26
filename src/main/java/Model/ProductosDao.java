@@ -166,7 +166,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
         return resp;
     }
 
-    public Productos findById(String id) {
+    public Productos findByIdProductos(String id) {
         Productos producto = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class EmpleadosDao implements IDao <Empleados, String>{
+public class EmpleadosDao implements IDao <Empleados, String> {
     private final String SQL_FIND_ALL = "SELECT * FROM EMPLEADOS WHERE 1=1 ORDER BY TO_NUMBER(ID_EMPLEADO)";
 
     private final String SQL_ADD = "INSERT INTO EMPLEADOS (ID_EMPLEADO, EMP_NOMBRE, EMP_APELLIDO, EMP_EMAIL, EMP_TELEFONO, EMP_ROL_COMITE, EMP_SALARY, EMP_ESTADO, ID_PUESTO_EMP, ID_USUARIO_EMP  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -14,12 +14,13 @@ public class EmpleadosDao implements IDao <Empleados, String>{
     private final String SQL_UPDATE = "UPDATE EMPLEADOS SET ";
 
     private final String SQL_DELETE = "DELETE FROM EMPLEADOS WHERE ID_EMPLEADO = ? ";
+
+    private final String SQL_FIND_BY_ID = "SELECT * FROM EMPLEADOS WHERE ID_PRODUCTO = ?";
     private MotorOracle _motorOracle;
+
     public EmpleadosDao(String db) {
         _motorOracle = DatabaseFactory.getDatabase(db);
     }
-
-
 
 
     @Override
@@ -179,7 +180,6 @@ public class EmpleadosDao implements IDao <Empleados, String>{
     }
 
 
-
     @Override
     public ArrayList<Empleados> findAll(Empleados bean) {
         ArrayList<Empleados> empleados = new ArrayList<>();
@@ -188,35 +188,35 @@ public class EmpleadosDao implements IDao <Empleados, String>{
             motor.connect();
             String sql = SQL_FIND_ALL;
             if (bean != null) {
-                if (((Empleados)bean).getIdEmpleado() != null) {
-                    sql += " AND ID_EMPLEADO='" + ((Empleados)bean).getIdEmpleado() + "'";
+                if (((Empleados) bean).getIdEmpleado() != null) {
+                    sql += " AND ID_EMPLEADO='" + ((Empleados) bean).getIdEmpleado() + "'";
                 }
-                if (((Empleados)bean).getNombre() != null) {
-                    sql += " AND EMP_NOMBRE='" + ((Empleados)bean).getNombre() + "'";
+                if (((Empleados) bean).getNombre() != null) {
+                    sql += " AND EMP_NOMBRE='" + ((Empleados) bean).getNombre() + "'";
                 }
-                if (((Empleados)bean).getApellido() != null) {
-                    sql += " AND EMP_APELLIDO='" + ((Empleados)bean).getApellido() + "'";
+                if (((Empleados) bean).getApellido() != null) {
+                    sql += " AND EMP_APELLIDO='" + ((Empleados) bean).getApellido() + "'";
                 }
-                if (((Empleados)bean).getEmail() != null) {
-                    sql += " AND EMP_EMAIL='" + ((Empleados)bean).getEmail() + "'";
+                if (((Empleados) bean).getEmail() != null) {
+                    sql += " AND EMP_EMAIL='" + ((Empleados) bean).getEmail() + "'";
                 }
-                if (((Empleados)bean).getTelefono() != null) {
-                    sql += " AND EMP_TELEFONO='" + ((Empleados)bean).getTelefono() + "'";
+                if (((Empleados) bean).getTelefono() != null) {
+                    sql += " AND EMP_TELEFONO='" + ((Empleados) bean).getTelefono() + "'";
                 }
-                if (((Empleados)bean).getRolComite() != null) {
-                    sql += " AND EMP_ROL_COMITE='" + ((Empleados)bean).getRolComite() + "'";
+                if (((Empleados) bean).getRolComite() != null) {
+                    sql += " AND EMP_ROL_COMITE='" + ((Empleados) bean).getRolComite() + "'";
                 }
-                if (((Empleados)bean).getSalario() > 0) {
-                    sql += " AND EMP_SALARY =" + ((Empleados)bean).getSalario();
+                if (((Empleados) bean).getSalario() > 0) {
+                    sql += " AND EMP_SALARY =" + ((Empleados) bean).getSalario();
                 }
-                if (((Empleados)bean).getEstado()) {
-                    sql += " AND EMP_ESTADO='" + (((Empleados)bean).getEstado() ? 1 : 0) + "'";
+                if (((Empleados) bean).getEstado()) {
+                    sql += " AND EMP_ESTADO='" + (((Empleados) bean).getEstado() ? 1 : 0) + "'";
                 }
-                if (((Empleados)bean).getIdPuesto() != null) {
-                    sql += " AND ID_PUESTO_EMP='" + ((Empleados)bean).getIdPuesto() + "'";
+                if (((Empleados) bean).getIdPuesto() != null) {
+                    sql += " AND ID_PUESTO_EMP='" + ((Empleados) bean).getIdPuesto() + "'";
                 }
-                if (((Empleados)bean).getIdUsuario() != null) {
-                    sql += " AND ID_USUARIO_EMP='" + ((Empleados)bean).getIdUsuario() + "'";
+                if (((Empleados) bean).getIdUsuario() != null) {
+                    sql += " AND ID_USUARIO_EMP='" + ((Empleados) bean).getIdUsuario() + "'";
                 }
             }
             ResultSet rs = motor.executeQuery(sql);
@@ -246,5 +246,43 @@ public class EmpleadosDao implements IDao <Empleados, String>{
             motor.disconnect();
         }
         return empleados;
+    }
+
+    public Empleados findByIdEmpleados(String id) {
+        Empleados empleado = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            _motorOracle.connect();
+            pstmt = _motorOracle.prepareStatement(SQL_FIND_BY_ID);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                empleado = new Empleados();
+                empleado.setIdEmpleado(rs.getString("ID_EMPLEADO"));
+                empleado.setNombre(rs.getString("EMP_NOMBRE"));
+                empleado.setApellido(rs.getString("EMP_APELLIDO"));
+                empleado.setEmail(rs.getString("EMP_EMAIL"));
+                empleado.setTelefono(rs.getString("EMP_TELEFONO"));
+                empleado.setRolComite(rs.getString("EMP_ROL_COMITE"));
+                empleado.setSalario(rs.getDouble("EMP_SALARY"));
+                empleado.setEstado(rs.getInt("EMP_ESTADO") == 1);
+                empleado.setIdPuesto(rs.getString("ID_PUESTO_EMP"));
+                empleado.setIdUsuario(rs.getString("ID_USUARIO_EMP"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar empleado por ID: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                _motorOracle.disconnect();
+            } catch (SQLException se) {
+                System.out.println("Error al cerrar recursos: " + se.getMessage());
+                se.printStackTrace();
+            }
+        }
+        return empleado;
     }
 }

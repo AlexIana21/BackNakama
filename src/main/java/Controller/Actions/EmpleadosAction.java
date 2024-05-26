@@ -29,6 +29,10 @@ public class EmpleadosAction implements IAction {
             case "FIND_ALL":
                 strReturn = findAll();
                 break;
+            case "FIND_BY_ID":
+                strReturn = findEmpleadoById(request, response);
+                break;
+
             default:
                 strReturn = "ERROR. Invalid Action";
         }
@@ -78,6 +82,22 @@ public class EmpleadosAction implements IAction {
             }
         } else {
             return "{\"message\":\"ERROR. Missing ID parameter\"}";
+        }
+    }
+
+
+    private String findEmpleadoById(HttpServletRequest request, HttpServletResponse response) {
+        String idParam = request.getParameter("ID_EMPLEADO");
+        if (idParam != null) {
+            EmpleadosDao empleadosDao = new EmpleadosDao(DatabaseFactory.ORACLE);
+            Empleados empleado = empleadosDao.findByIdEmpleados(idParam);
+            if (empleado != null) {
+                return Empleados.fromObjectToJSON(empleado);
+            } else {
+                return "{\"message\":\"ERROR. Empleado no encontrado\"}";
+            }
+        } else {
+            return "{\"message\":\"ERROR. Falta el parámetro ID\"}";
         }
     }
 }
