@@ -183,9 +183,7 @@ public class ProductosDao implements IDao <Productos, Integer> {
                 producto.setDescripcion(rs.getString("PRD_DESCRIPCION"));
                 producto.setImagenRuta(rs.getString("PRD_IMAGEN_RUTA"));
                 producto.setEstado(rs.getInt("PRD_ESTADO") == 1);
-                Categoria categoria = new Categoria();
-                categoria.setIdCategoria(rs.getString("ID_CATEGORIA_PRD"));
-                producto.setIdCategoria(categoria.getIdCategoria());
+                producto.setIdCategoria(rs.getString("ID_CATEGORIA_PRD"));
             }
         } catch (SQLException e) {
             System.out.println("Error al buscar producto por ID: " + e.getMessage());
