@@ -167,14 +167,14 @@ public class ProductosDao implements IDao <Productos, Integer> {
     }
 
     public Productos findById(String id) {
-        MotorOracle motor = new MotorOracle();
         Productos producto = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            motor.connect();
-            String sql = SQL_FIND_BY_ID;
-            PreparedStatement pstmt = motor.prepareStatement(sql);
+            _motorOracle.connect();
+            pstmt = _motorOracle.prepareStatement(SQL_FIND_BY_ID);
             pstmt.setString(1, id);
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
             if (rs.next()) {
                 producto = new Productos();
                 producto.setIdProducto(rs.getString("ID_PRODUCTO"));
@@ -191,11 +191,17 @@ public class ProductosDao implements IDao <Productos, Integer> {
             System.out.println("Error al buscar producto por ID: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            motor.disconnect();
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                _motorOracle.disconnect();
+            } catch (SQLException se) {
+                System.out.println("Error al cerrar recursos: " + se.getMessage());
+                se.printStackTrace();
+            }
         }
         return producto;
     }
-
 
     public ArrayList<Productos> findAllByCategory(Productos bean, boolean orderByIdProducto ) {
         ArrayList<Productos> productos = new ArrayList<>();
