@@ -24,13 +24,13 @@ public class ProductosAction implements IAction {
                 strReturn = deleteProduct(request,response);
                 break;
             case "ADD":
-            strReturn = addProduct(request, response);
-            break;
+                strReturn = addProduct(request, response);
+                break;
             case "UPDATE":
                 strReturn = updateProduct(request, response);
                 break;
             case "FIND_BY_ID":
-                strReturn = findProductById(request);
+                strReturn = findProductById(request, response);
                 break;
 
             default:
@@ -105,19 +105,33 @@ public class ProductosAction implements IAction {
     }
 
     private String updateProduct(HttpServletRequest request, HttpServletResponse response) {
-        Productos producto = new Gson().fromJson(Controller.getBody(request), Productos.class);
-        System.out.println(new Gson().toJson(producto));
         ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
-        int result = productosDao.update(producto);
+        Productos producto = new Productos();
 
-        if (result > 0) {
-            return Productos.fromObjectToJSON(producto);
-        } else {
-            return "{\"message\":\"Error al actualizar el producto\"}";
+        try {
+            producto.setIdProducto(request.getParameter("ID_PRODUCTO"));
+            producto.setNombre(request.getParameter("PRD_NOMBRE"));
+            producto.setPrecioVenta(Double.parseDouble(request.getParameter("PRD_PRECIO_VENTA")));
+            producto.setDescripcion(request.getParameter("PRD_DESCRIPCION"));
+            producto.setImagenRuta(request.getParameter("PRD_IMAGEN_RUTA"));
+            producto.setEstado(Boolean.parseBoolean(request.getParameter("PRD_ESTADO")));
+            producto.setIdCategoria(request.getParameter("ID_CATEGORIA_PRD"));
+
+            int result = productosDao.update(producto);
+            if (result > 0) {
+                return Productos.fromObjectToJSON(producto);
+            } else {
+                return "ERROR. No se pudo actualizar el producto";
+            }
+        } catch (NumberFormatException e) {
+            return "ERROR. Formato de número inválido para PRD_PRECIO_VENTA";
+        } catch (Exception e) {
+            return "ERROR. " + e.getMessage();
         }
     }
 
-    private String findProductById(HttpServletRequest request) {
+
+    private String findProductById(HttpServletRequest request, HttpServletResponse response) {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
             ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
@@ -132,21 +146,21 @@ public class ProductosAction implements IAction {
         }
     }
 
-  /*  private String findProductById(HttpServletRequest request, HttpServletResponse response) {
-        String idParam = request.getParameter("ID_PRODUCTO");
-        if (idParam != null) {
-            ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
-            int result = productosDao.findById(idParam);
-            if (result > 0) {
-                return Productos.fromObjectToJSON(idParam);
-            } else {
-                return "{\"message\":\"Producto no encontrado\"}";
-            }
-        } else {
-            return "{\"message\":\"ERROR. Falta el parámetro ID\"}";
-        }
-    }
-*/
+    /*  private String findProductById(HttpServletRequest request, HttpServletResponse response) {
+          String idParam = request.getParameter("ID_PRODUCTO");
+          if (idParam != null) {
+              ProductosDao productosDao = new ProductosDao(DatabaseFactory.ORACLE);
+              int result = productosDao.findById(idParam);
+              if (result > 0) {
+                  return Productos.fromObjectToJSON(idParam);
+              } else {
+                  return "{\"message\":\"Producto no encontrado\"}";
+              }
+          } else {
+              return "{\"message\":\"ERROR. Falta el parámetro ID\"}";
+          }
+      }
+  */
     private String deleteProduct(HttpServletRequest request, HttpServletResponse response) {
         String idParam = request.getParameter("ID_PRODUCTO");
         if (idParam != null) {
