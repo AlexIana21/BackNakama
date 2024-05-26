@@ -59,17 +59,35 @@ public class EmpleadosAction implements IAction {
     }
 
     private String updateEmpleado(HttpServletRequest request, HttpServletResponse response) {
-        Empleados empleados = new Gson().fromJson(Controller.getBody(request), Empleados.class);
-        System.out.println(new Gson().toJson(empleados));
         EmpleadosDao empleadosDao = new EmpleadosDao(DatabaseFactory.ORACLE);
-        int result = empleadosDao.update(empleados);
+        Empleados empleado = new Empleados();
 
-        if (result > 0) {
-            return Empleados.fromObjectToJSON(empleados);
-        } else {
-            return "{\"message\":\"Error al registrar el producto\"}";
+        try {
+            empleado.setIdEmpleado(request.getParameter("ID_EMPLEADO"));
+            empleado.setNombre(request.getParameter("EMP_NOMBRE"));
+            empleado.setApellido(request.getParameter("EMP_APELLIDO"));
+            empleado.setEmail(request.getParameter("EMP_EMAIL"));
+            empleado.setTelefono(request.getParameter("EMP_TELEFONO"));
+            empleado.setRolComite(request.getParameter("EMP_ROL_COMITE"));
+            empleado.setSalario(Double.parseDouble(request.getParameter("EMP_SALARY")));
+            empleado.setEstado(Boolean.parseBoolean(request.getParameter("EMP_ESTADO")));
+            empleado.setIdPuesto(request.getParameter("ID_PUESTO_EMP"));
+            empleado.setIdUsuario(request.getParameter("ID_USUARIO_EMP"));
+
+            int result = empleadosDao.update(empleado);
+            if (result > 0) {
+                return Empleados.fromObjectToJSON(empleado);
+            } else {
+                return "ERROR. No se pudo actualizar el empleado";
+            }
+        } catch (NumberFormatException e) {
+            return "ERROR. Formato de número inválido para EMP_SALARY";
+        } catch (Exception e) {
+            return "ERROR. " + e.getMessage();
         }
     }
+
+
     private String deleteEmpleado(HttpServletRequest request, HttpServletResponse response) {
         String idParam = request.getParameter("ID_EMPLEADO");
         if (idParam != null) {

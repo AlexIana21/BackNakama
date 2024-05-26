@@ -102,8 +102,6 @@ public class ProductosDao implements IDao <Productos, Integer> {
         PreparedStatement pstmt = null;
         try {
             motor.connect();
-
-            // Construir la consulta SQL dinámicamente
             StringBuilder sql = new StringBuilder(SQL_UPDATE);
             ArrayList<Object> params = new ArrayList<>();
 

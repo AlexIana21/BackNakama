@@ -15,7 +15,7 @@ public class EmpleadosDao implements IDao <Empleados, String> {
 
     private final String SQL_DELETE = "DELETE FROM EMPLEADOS WHERE ID_EMPLEADO = ? ";
 
-    private final String SQL_FIND_BY_ID = "SELECT * FROM EMPLEADOS WHERE ID_PRODUCTO = ?";
+    private final String SQL_FIND_BY_ID = "SELECT * FROM EMPLEADOS WHERE ID_EMPLEADO = ?";
     private MotorOracle _motorOracle;
 
     public EmpleadosDao(String db) {
@@ -103,8 +103,6 @@ public class EmpleadosDao implements IDao <Empleados, String> {
         PreparedStatement pstmt = null;
         try {
             motor.connect();
-
-            // Construir la consulta SQL dinámicamente
             StringBuilder sql = new StringBuilder(SQL_UPDATE);
             ArrayList<Object> params = new ArrayList<>();
 
@@ -112,7 +110,7 @@ public class EmpleadosDao implements IDao <Empleados, String> {
                 sql.append("EMP_NOMBRE = ?, ");
                 params.add(bean.getNombre());
             }
-            if (bean.getNombre() != null) {
+            if (bean.getApellido() != null) {
                 sql.append("EMP_APELLIDO = ?, ");
                 params.add(bean.getNombre());
             }
@@ -147,7 +145,7 @@ public class EmpleadosDao implements IDao <Empleados, String> {
 
             // Eliminar la última coma y agregar la cláusula WHERE
             sql.setLength(sql.length() - 2);
-            sql.append(" WHERE ID_EMPLEADOS = ?");
+            sql.append(" WHERE ID_EMPLEADO = ?");
             params.add(bean.getIdEmpleado());
 
             pstmt = motor.prepareStatement(sql.toString());
