@@ -63,14 +63,16 @@ public class ClientesAction implements IAction {
 
 
     private String login(HttpServletRequest request, HttpServletResponse response) {
-        Clientes clienteData = new Gson().fromJson(Controller.getBody(request), Clientes.class);
+        String email = request.getParameter("CL_EMAIL");
+        String password = request.getParameter("CL_PASSWORD");
 
         ClientesDao clientesDao = new ClientesDao(DatabaseFactory.ORACLE);
-        Clientes cliente = clientesDao.login(clienteData.getEmail(), clienteData.getPassword());
+        Clientes cliente = clientesDao.login(email, password);
 
         if (cliente != null) {
             return Clientes.fromObjectToJSON(cliente);
         } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return "{\"message\":\"Login failed. Invalid email or password.\"}";
         }
     }
