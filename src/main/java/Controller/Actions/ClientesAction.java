@@ -63,11 +63,10 @@ public class ClientesAction implements IAction {
 
 
     private String login(HttpServletRequest request, HttpServletResponse response) {
-        String email = request.getParameter("CL_EMAIL");
-        String password = request.getParameter("CL_PASSWORD");
+        Clientes clienteData = new Gson().fromJson(Controller.getBody(request), Clientes.class);
 
         ClientesDao clientesDao = new ClientesDao(DatabaseFactory.ORACLE);
-        Clientes cliente = clientesDao.login(email, password);
+        Clientes cliente = clientesDao.login(clienteData.getEmail(), clienteData.getPassword());
 
         if (cliente != null) {
             return Clientes.fromObjectToJSON(cliente);
